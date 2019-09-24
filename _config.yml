@@ -78,6 +78,4 @@ theme: fluid
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type:git
-  # repo:
-  branch: gh-pages
+  type:
