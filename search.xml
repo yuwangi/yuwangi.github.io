@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>Mock自定义配置</title>
+      <link href="/2019/10/08/Mock%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE-1/"/>
+      <url>/2019/10/08/Mock%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE-1/</url>
+      
+        <content type="html"><![CDATA[<h2 id="一、为什么需要Mock"><a href="#一、为什么需要Mock" class="headerlink" title="一、为什么需要Mock"></a>一、为什么需要Mock</h2><p>这样的场景，相信大家会觉得似曾相识。</p><p>为此，我们就需要使用一些工具来帮助我们将业务单元之间尽量解耦，它就是<strong>Mock</strong></p><a id="more"></a><h2 id="实现Mock"><a href="#实现Mock" class="headerlink" title="实现Mock"></a>实现Mock</h2><h3 id="古代"><a href="#古代" class="headerlink" title="古代"></a>古代</h3><p>没有出现Mock前，为了能模拟数据，一般屏蔽请求代码，然后写死数据，比如：</p><pre><code>&#x2F;&#x2F; this.$http.get(&quot;&#x2F;maps&#x2F;aoi_user_search&#x2F;&quot;).then(&#x2F;&#x2F;   function(res) {&#x2F;&#x2F;     setData(res);&#x2F;&#x2F;   },&#x2F;&#x2F;   function(res) {&#x2F;&#x2F;     console.log(res.status);&#x2F;&#x2F;   }&#x2F;&#x2F; );let res={a:1,b:2}setData(res);</code></pre><p>这种方式很简单，起码当初就照这个方式继续开发了，虽然后续接口有数据，改起来很麻烦。但是也会常常遇到忘记把模拟数据移除，导致实际使用的时候一直是假数据，而非真实数据，为此出现过多次。所以为了解决这个问题，就用到了Mock。</p><h3 id="近代"><a href="#近代" class="headerlink" title="近代"></a>近代</h3><p>在这个时候，我们就拥有了MockJS,通过使用MockJS我们能根据模板和规则生成复杂的接口数据，而无需我们自己动手去书写，例如：</p><pre><code class="JavaScript">//apisimport api from &#39;../api/index&#39;;import Mock from &#39;mockjs&#39;;function getApiMessage() {    return new Promise((resolve) =&gt; {        resolve(Mock.mock({            list|1-20: [&#39;mock数据&#39;]        });    })    // return api.getApiMessage();}/** * 通过 Mock.mock 方法和 list|1-20: [&#39;mock数据&#39;] 模板 * 我们将生成一个长度为 1-20, 每个值都为 &#39;mock数据&#39; 数组 */</code></pre><p>这种方式也只是方便我们造假数据，而并不能方便的抽离出我们的代码。<br>这个时候想一下，我们Mock数据的需求：</p><ul><li>模拟数据</li><li>模拟数据与代码完全分离</li><li>通过一些配置，可以只获取部分Mock数据</li></ul><p>首先，如果我们想要把代码跟数据完全分离，我们必须想办法在请求的时候做一些操作，让本应请求正式数据的接口去请求Mock数据，做一个请求拦截，请求拦截的方式有两种：</p><ul><li>一种是修改请求的链接，来达到Mock数据</li></ul><pre><code class="JavaScript">//main.vueservice.getBuildingListByPage({    ...params,    mock:true})//server.jsgetBuildingListByPage: params =&gt; {    let baseApi=env.baseApi    if(params.mock){      baseApi=&#39;127.0.0.1:8080&#39;    }    return fly.get(      env.baseApi + &quot;g/bam/c/quote/building-list&quot;,      params    )  }</code></pre><ul><li>另外一种就是检测出Mock，直接从mock文件中取出数据</li></ul><pre><code class="JavaScript">//main.vueservice.getBuildingListByPage({    ...params,    mock:true})//server.jsimport mockData from &#39;mock/db.js&#39;;getBuildingListByPage: params =&gt; {    let baseApi=env.baseApi    if(params.mock){      return mockData[getBuildingListByPage]    }    return fly.get(      env.baseApi + &quot;g/building-list&quot;,      params    )  }</code></pre><p>乍一看好像第二种方式似乎更简单，事实也确实如此。但是这样用起来还不是很方便，而且接口多了，Mock数据文件会很大，需要做一个拆分。所以就有了后来的配置。</p><h3 id="现代"><a href="#现代" class="headerlink" title="现代"></a>现代</h3><p>tips:现在的配置基于<strong>webpack</strong>的<strong>devServer</strong><br>在webpack中做转发代理，所有请求会先过before这个回调函数：</p><pre><code class="javascript">const apiMocker = require(&#39;mocker-api&#39;);//webpack配置mode: &#39;development&#39;,  devServer: {    host: &#39;0.0.0.0&#39;,    port: 9001,    headers: {      &#39;Access-Control-Allow-Origin&#39;: &#39;*&#39;    },    historyApiFallback: {      rewrites: [{        from: /.*/g,        to: &#39;/www/view/index.html&#39;      }]    },    proxy: {      &#39;/api&#39;: {        target: &#39;http://10.12.67.192:8091/&#39;      }    },    before(app) {      apiMocker(app, path.resolve(__dirname, &#39;../mock/index.js&#39;));    }  },</code></pre><p>Mock资源文件<br><img src="en-resource://database/586:1" alt="ce8f8163afd3df184358e55c9ef5011e.png"><br>JSON文件</p><pre><code class="javascript">{  &quot;err_code&quot;: 0,  &quot;err_msg&quot;: &quot;ok&quot;,  &quot;mock&quot;: true,  &quot;data&quot;: {    &quot;poi&quot;: {      &quot;z_id&quot;: &quot;111111111111&quot;,      &quot;name&quot;: &quot;中国技术交易大厦大厦大厦&quot;,      &quot;province&quot;: &quot;&quot;,      &quot;city&quot;: &quot;北京市&quot;,      &quot;district&quot;: &quot;海淀区&quot;,      &quot;longitude&quot;: 116.307499005,      &quot;latitude&quot;: 39.111,      &quot;addr&quot;: &quot;&quot;,      &quot;category&quot;: &quot;房产小区:商务楼宇&quot;,      &quot;category_code&quot;: 281200,      &quot;expiration_label&quot;: 0,      &quot;phone&quot;: &quot;&quot;    }  }}</code></pre><p>Mockjs配置</p><pre><code class="javascript">const delay = require(&#39;mocker-api/utils/delay&#39;);const fs = require(&#39;fs&#39;);const dirCur = fs.readdirSync(__dirname);const path = require(&#39;path&#39;);const MOCK = process.env.MOCK || process.env.mock || process.env.Mock;const apiList = {};dirCur.forEach(item =&gt; {  const basename = path.basename(item, &#39;.json&#39;);  if (basename !== &#39;index.js&#39;) {    const apiName =      &#39;POST /api/&#39; +      basename.replace(/[A-Z]/g, math =&gt; {        return &#39;/&#39; + math.toLowerCase();      });    let apiData = fs.readFileSync(path.join(__dirname, item), &#39;utf8&#39;);    try {      apiData = JSON.parse(apiData);    } catch (e) {      console.log(item, e);    }    if (MOCK || apiData.mock) {      apiList[apiName] = (req, res, next) =&gt; {        console.log(&#39;Mock API:&#39; + req.path);        res.json(apiData);      };    }  }});module.exports = delay(apiList, 10);</code></pre><p>json文件采取驼峰命名方式，然后通过正则判断大写,替换成/+小写路径，然后用node中的fs读取当前文件夹下所有文件，得到文件列表遍历，读取文件内容，最后判断是否开发模式或是否开启Mock,然后返回数据。</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2019/09/25/hello-world/"/>
+      <url>/2019/09/25/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>第一篇文章自然要用Hello World开头，写博客就是想把平常用到的东西积累下来。</p><h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2><h3 id="后面会慢慢加一些html、css、vue、react、webpack、node的一些东西。"><a href="#后面会慢慢加一些html、css、vue、react、webpack、node的一些东西。" class="headerlink" title="后面会慢慢加一些html、css、vue、react、webpack、node的一些东西。"></a>后面会慢慢加一些html、css、vue、react、webpack、node的一些东西。</h3>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+  
+  
+</search>
