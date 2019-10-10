@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="vue路由守卫路由守卫，也可以是路由拦截，我们可以通过路由拦截，来判断用户是否登录，该页面用户是否有权限浏览，需要结合meta来实现vue中路由守卫一共有三种，一个全局路由守卫，一个是组件内路由守卫，一个是router独享守卫 全局路由守卫所谓全局守卫就是所有页面的路由拦截。它有两个钩子 全局前置守卫beforeEach, 全局后置守卫afterEach 全局前置守卫，就是 用户进入页面时路由拦截">
+<meta name="description" content="vue路由守卫路由守卫，也可以是路由拦截，我们可以通过路由拦截，来判断用户是否登录，该页面用户是否有权限浏览，需要结合meta来实现vue中路由守卫一共有三种，一个全局路由守卫，一个是组件内路由守卫，一个是router独享守卫">
 <meta name="keywords" content="Vue,router,权限控制">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vue路由守卫与登陆权限控制">
 <meta property="og:url" content="https://yuwangi.github.io/2019/10/10/vue路由守卫与登陆权限控制/index.html">
 <meta property="og:site_name" content="Blog">
-<meta property="og:description" content="vue路由守卫路由守卫，也可以是路由拦截，我们可以通过路由拦截，来判断用户是否登录，该页面用户是否有权限浏览，需要结合meta来实现vue中路由守卫一共有三种，一个全局路由守卫，一个是组件内路由守卫，一个是router独享守卫 全局路由守卫所谓全局守卫就是所有页面的路由拦截。它有两个钩子 全局前置守卫beforeEach, 全局后置守卫afterEach 全局前置守卫，就是 用户进入页面时路由拦截">
+<meta property="og:description" content="vue路由守卫路由守卫，也可以是路由拦截，我们可以通过路由拦截，来判断用户是否登录，该页面用户是否有权限浏览，需要结合meta来实现vue中路由守卫一共有三种，一个全局路由守卫，一个是组件内路由守卫，一个是router独享守卫">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-10T09:57:04.340Z">
+<meta property="og:updated_time" content="2019-10-10T10:22:33.528Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue路由守卫与登陆权限控制">
-<meta name="twitter:description" content="vue路由守卫路由守卫，也可以是路由拦截，我们可以通过路由拦截，来判断用户是否登录，该页面用户是否有权限浏览，需要结合meta来实现vue中路由守卫一共有三种，一个全局路由守卫，一个是组件内路由守卫，一个是router独享守卫 全局路由守卫所谓全局守卫就是所有页面的路由拦截。它有两个钩子 全局前置守卫beforeEach, 全局后置守卫afterEach 全局前置守卫，就是 用户进入页面时路由拦截">
+<meta name="twitter:description" content="vue路由守卫路由守卫，也可以是路由拦截，我们可以通过路由拦截，来判断用户是否登录，该页面用户是否有权限浏览，需要结合meta来实现vue中路由守卫一共有三种，一个全局路由守卫，一个是组件内路由守卫，一个是router独享守卫">
 
 
 
@@ -370,6 +370,7 @@
 
       
         <h2 id="vue路由守卫"><a href="#vue路由守卫" class="headerlink" title="vue路由守卫"></a>vue路由守卫</h2><p>路由守卫，也可以是路由拦截，我们可以通过路由拦截，来判断用户是否登录，该页面用户是否有权限浏览，需要结合meta来实现<br>vue中路由守卫一共有三种，一个全局路由守卫，一个是组件内路由守卫，一个是router独享守卫</p>
+<a id="more"></a>
 <h3 id="全局路由守卫"><a href="#全局路由守卫" class="headerlink" title="全局路由守卫"></a>全局路由守卫</h3><p>所谓全局守卫就是所有页面的路由拦截。它有两个钩子 全局前置守卫<code>beforeEach</code>, 全局后置守卫<code>afterEach</code></p>
 <p>全局前置守卫，就是 用户进入页面时路由拦截，进行一些处理的钩子。通常做一些页面权限控制或title命名之类的操作。</p>
 <p>全局后置守卫，就是 页面成功访问的回调钩子</p>
