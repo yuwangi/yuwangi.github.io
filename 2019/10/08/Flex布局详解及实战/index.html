@@ -81,13 +81,13 @@
 
 
 
-<meta name="description" content="一、Flex 布局是什么Flex 是 Flexible Box 的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。 任何一个容器都可以指定为 Flex 布局。">
+<meta name="description" content="Flex 布局是什么Flex 是 Flexible Box 的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。 任何一个容器都可以指定为 Flex 布局。">
 <meta name="keywords" content="Flex,css">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Flex布局详解及实战">
 <meta property="og:url" content="https://yuwangi.github.io/2019/10/08/Flex布局详解及实战/index.html">
 <meta property="og:site_name" content="Blog">
-<meta property="og:description" content="一、Flex 布局是什么Flex 是 Flexible Box 的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。 任何一个容器都可以指定为 Flex 布局。">
+<meta property="og:description" content="Flex 布局是什么Flex 是 Flexible Box 的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。 任何一个容器都可以指定为 Flex 布局。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071004.png">
 <meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071005.png">
@@ -102,10 +102,10 @@
 <meta property="og:image" content="https://yuwangi.github.io/images/46984698048.png">
 <meta property="og:image" content="https://yuwangi.github.io/images/20191009103717445.png">
 <meta property="og:image" content="https://yuwangi.github.io/images/4891849864105.png">
-<meta property="og:updated_time" content="2019-10-10T04:00:22.383Z">
+<meta property="og:updated_time" content="2019-10-11T02:07:18.330Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Flex布局详解及实战">
-<meta name="twitter:description" content="一、Flex 布局是什么Flex 是 Flexible Box 的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。 任何一个容器都可以指定为 Flex 布局。">
+<meta name="twitter:description" content="Flex 布局是什么Flex 是 Flexible Box 的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。 任何一个容器都可以指定为 Flex 布局。">
 <meta name="twitter:image" content="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071004.png">
 
 
@@ -148,16 +148,6 @@
 
 
 
-
-  <script type="text/javascript">
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?fa8dbdb77804355117da99a31dc900d5";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
 
 
 
@@ -384,7 +374,7 @@
       
 
       
-        <h2 id="一、Flex-布局是什么"><a href="#一、Flex-布局是什么" class="headerlink" title="一、Flex 布局是什么"></a>一、Flex 布局是什么</h2><p><strong>Flex</strong> 是 <strong>Flexible Box</strong> 的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。</p>
+        <h2 id="Flex-布局是什么"><a href="#Flex-布局是什么" class="headerlink" title="Flex 布局是什么"></a>Flex 布局是什么</h2><p><strong>Flex</strong> 是 <strong>Flexible Box</strong> 的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。</p>
 <p>任何一个容器都可以指定为 <strong>Flex</strong> 布局。</p>
 <a id="more"></a>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box&#123;</span><br><span class="line">    display:flex;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -393,11 +383,11 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box&#123;</span><br><span class="line">    display:inline-flex;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>注意，设为 <strong>Flex</strong> 布局以后，子元素的<code>float</code>、<code>clear</code>和<code>vertical-align</code>属性将失效。</p>
-<h2 id="二、基本概念"><a href="#二、基本概念" class="headerlink" title="二、基本概念"></a>二、基本概念</h2><p>采用 <strong>Flex</strong> 布局的元素，称为 <strong>Flex</strong> 容器（flex container），简称”容器”。它的所有子元素自动成为容器成员，称为 <strong>Flex</strong> 项目（flex item），简称”项目”。</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>采用 <strong>Flex</strong> 布局的元素，称为 <strong>Flex</strong> 容器（flex container），简称”容器”。它的所有子元素自动成为容器成员，称为 <strong>Flex</strong> 项目（flex item），简称”项目”。</p>
 <p><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071004.png" alt="images/20190930145233.jpg"></p>
 <p>容器默认存在两根轴：水平的主轴（<strong>main axis</strong>）和垂直的交叉轴（<strong>cross axis</strong>）。主轴的开始位置（与边框的交叉点）叫做<code>main start</code>，结束位置叫做<code>main end</code>；交叉轴的开始位置叫做<code>cross start</code>，结束位置叫做<code>cross end</code>。</p>
 <p>项目默认沿主轴排列。单个项目占据的主轴空间叫做<code>main size</code>，占据的交叉轴空间叫做<code>cross size</code>。</p>
-<h2 id="三、容器的属性"><a href="#三、容器的属性" class="headerlink" title="三、容器的属性"></a>三、容器的属性</h2><ul>
+<h2 id="容器的属性"><a href="#容器的属性" class="headerlink" title="容器的属性"></a>容器的属性</h2><ul>
 <li>flex-direction</li>
 <li>flex-wrap</li>
 <li>flex-flow</li>
@@ -458,7 +448,7 @@
 <li>space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。</li>
 <li>stretch（默认值）：轴线占满整个交叉轴。</li>
 </ul>
-<h2 id="四、项目的属性"><a href="#四、项目的属性" class="headerlink" title="四、项目的属性"></a>四、项目的属性</h2><h3 id="order"><a href="#order" class="headerlink" title="order"></a>order</h3><p><code>order</code>属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。</p>
+<h2 id="项目的属性"><a href="#项目的属性" class="headerlink" title="项目的属性"></a>项目的属性</h2><h3 id="order"><a href="#order" class="headerlink" title="order"></a>order</h3><p><code>order</code>属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">  order: &lt;integer&gt;;//数值</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071013.png" alt="fwsg"></p>
@@ -645,7 +635,7 @@ var jiathis_config={
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -658,7 +648,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -733,7 +723,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、Flex-布局是什么"><span class="nav-number">1.</span> <span class="nav-text">一、Flex 布局是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、基本概念"><span class="nav-number">2.</span> <span class="nav-text">二、基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、容器的属性"><span class="nav-number">3.</span> <span class="nav-text">三、容器的属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#flex-direction-方向"><span class="nav-number">3.1.</span> <span class="nav-text">flex-direction(方向)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flex-wrap-换行"><span class="nav-number">3.2.</span> <span class="nav-text">flex-wrap (换行)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flex-flow"><span class="nav-number">3.3.</span> <span class="nav-text">flex-flow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#justify-content"><span class="nav-number">3.4.</span> <span class="nav-text">justify-content</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#align-items"><span class="nav-number">3.5.</span> <span class="nav-text">align-items</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#align-content"><span class="nav-number">3.6.</span> <span class="nav-text">align-content</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、项目的属性"><span class="nav-number">4.</span> <span class="nav-text">四、项目的属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#order"><span class="nav-number">4.1.</span> <span class="nav-text">order</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flex-grow"><span class="nav-number">4.2.</span> <span class="nav-text">flex-grow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flex-shrink"><span class="nav-number">4.3.</span> <span class="nav-text">flex-shrink</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flex-basis"><span class="nav-number">4.4.</span> <span class="nav-text">flex-basis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flex"><span class="nav-number">4.5.</span> <span class="nav-text">flex</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#align-self"><span class="nav-number">4.6.</span> <span class="nav-text">align-self</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flex练习"><span class="nav-number">5.</span> <span class="nav-text">Flex练习</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Flex-布局是什么"><span class="nav-number">1.</span> <span class="nav-text">Flex 布局是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">2.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器的属性"><span class="nav-number">3.</span> <span class="nav-text">容器的属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#flex-direction-方向"><span class="nav-number">3.1.</span> <span class="nav-text">flex-direction(方向)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flex-wrap-换行"><span class="nav-number">3.2.</span> <span class="nav-text">flex-wrap (换行)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flex-flow"><span class="nav-number">3.3.</span> <span class="nav-text">flex-flow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#justify-content"><span class="nav-number">3.4.</span> <span class="nav-text">justify-content</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#align-items"><span class="nav-number">3.5.</span> <span class="nav-text">align-items</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#align-content"><span class="nav-number">3.6.</span> <span class="nav-text">align-content</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目的属性"><span class="nav-number">4.</span> <span class="nav-text">项目的属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#order"><span class="nav-number">4.1.</span> <span class="nav-text">order</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flex-grow"><span class="nav-number">4.2.</span> <span class="nav-text">flex-grow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flex-shrink"><span class="nav-number">4.3.</span> <span class="nav-text">flex-shrink</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flex-basis"><span class="nav-number">4.4.</span> <span class="nav-text">flex-basis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flex"><span class="nav-number">4.5.</span> <span class="nav-text">flex</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#align-self"><span class="nav-number">4.6.</span> <span class="nav-text">align-self</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flex练习"><span class="nav-number">5.</span> <span class="nav-text">Flex练习</span></a></li></ol></div>
             
 
           </div>
@@ -754,7 +744,7 @@ var jiathis_config={
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
 <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="heart">
     <i class="fa fa-heart" aria-hidden="true"></i>
@@ -767,12 +757,9 @@ var jiathis_config={
 
 
 
-
-
-
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共10.9k字</span>
+  <span class="post-count">博客全站共11.4k字</span>
 </div>
         
 <div class="busuanzi-count">
