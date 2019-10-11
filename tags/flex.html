@@ -81,17 +81,17 @@
 
 
 
-<meta name="description" content="骰子练习              body,html{             background: #ccc;         }         .box{             width: 160px;             height: 160px;             display: flex;             fle">
+<meta name="description" content="骰子练习              body,         html {             background: #ccc;         }          .box {             width: 160px;             height: 160px;             display: flex;">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Blog">
 <meta property="og:url" content="https://yuwangi.github.io/tags/flex.html">
 <meta property="og:site_name" content="Blog">
-<meta property="og:description" content="骰子练习              body,html{             background: #ccc;         }         .box{             width: 160px;             height: 160px;             display: flex;             fle">
+<meta property="og:description" content="骰子练习              body,         html {             background: #ccc;         }          .box {             width: 160px;             height: 160px;             display: flex;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-11T06:18:13.444Z">
+<meta property="og:updated_time" content="2019-10-11T11:06:12.374Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Blog">
-<meta name="twitter:description" content="骰子练习              body,html{             background: #ccc;         }         .box{             width: 160px;             height: 160px;             display: flex;             fle">
+<meta name="twitter:description" content="骰子练习              body,         html {             background: #ccc;         }          .box {             width: 160px;             height: 160px;             display: flex;">
 
 
 
@@ -295,45 +295,53 @@
         
           <!DOCTYPE html>
 <html lang="en">
+
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>骰子练习</title>
     <style>
-        body,html{
+        body,
+        html {
             background: #ccc;
         }
-        .box{
+
+        .box {
             width: 160px;
             height: 160px;
             display: flex;
-            flex-direction:column;
+            flex-direction: column;
             align-items: center;
             justify-content: space-around;
             background: #fff;
             border-radius: 5px;
         }
-        .item{
+
+        .item {
             background: #ff0000;
             width: 34px;
             height: 34px;
             border-radius: 50%;
         }
-        .item1{
+
+        .item1 {
             align-self: flex-start;
             justify-content: space-around;
         }
-        .item2{
+
+        .item2 {
             justify-content: center;
             align-self: center;
         }
-        .item3{
+
+        .item3 {
             align-self: flex-end;
             justify-content: space-around;
         }
     </style>
 </head>
+
 <body>
     <div class="box">
         <div class="item item1"></div>
@@ -341,6 +349,70 @@
         <div class="item item3"></div>
     </div>
 </body>
+<script>
+    var array = [],
+        length = (array.length = 100000000); //(一亿))
+    // for(var i=0;i<length;i++){
+    //  array[i] = 'louis';
+    // }
+    // console.log(array[0]);
+    //-------------------------for
+    var t1 = +new Date();
+    for (var i = 0; i < length; i++) {}
+    var t2 = +new Date();
+    console.log("for:" + (t2 - t1));
+
+    //-------------------------do/while
+    var t1 = +new Date();
+    var i = 0;
+    do {
+        i++;
+    } while (i < length);
+    var t2 = +new Date();
+    console.log("do while:" + (t2 - t1));
+
+    //-------------------------forEach
+    var t1 = +new Date();
+    array.forEach(function (item) {});
+    var t2 = +new Date();
+    console.log("forEach:" + (t2 - t1));
+
+    //-------------------------for in
+    var t1 = +new Date();
+    for (var item in array) {}
+    var t2 = +new Date();
+    console.log("for in:" + (t2 - t1));
+
+    //------------------------- every
+    var t1 = +new Date();
+    array.every(() => {});
+    var t2 = +new Date();
+    console.log("every" + (t2 - t1));
+
+    //------------------------- some
+    var t1 = +new Date();
+    array.some(() => {});
+    var t2 = +new Date();
+    console.log("some" + (t2 - t1));
+
+    //-------------------------map
+    var t1 = +new Date();
+    array.map(function (num) {});
+    var t2 = +new Date();
+    console.log("map:" + (t2 - t1));
+
+    //-------------------------filter
+    var t1 = +new Date();
+    array.filter(function (e, i, arr) {});
+    var t2 = +new Date();
+    console.log("filter:" + (t2 - t1));
+    //-------------------------reduce
+    var t1 = +new Date();
+    array.reduce(function (e, i, arr) {});
+    var t2 = +new Date();
+    console.log("reduce:" + (t2 - t1));
+</script>
+
 </html>
 .
         
@@ -404,7 +476,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -417,7 +489,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -511,7 +583,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共11.7k字</span>
+  <span class="post-count">博客全站共14.7k字</span>
 </div>
         
 <div class="busuanzi-count">
