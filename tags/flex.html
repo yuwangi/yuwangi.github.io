@@ -88,7 +88,7 @@
 <meta property="og:site_name" content="Blog">
 <meta property="og:description" content="骰子练习              body,         html {             background: #ccc;         }          .box {             width: 160px;             height: 160px;             display: flex;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-11T11:06:12.374Z">
+<meta property="og:updated_time" content="2019-10-12T02:24:55.771Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Blog">
 <meta name="twitter:description" content="骰子练习              body,         html {             background: #ccc;         }          .box {             width: 160px;             height: 160px;             display: flex;">
@@ -351,66 +351,36 @@
 </body>
 <script>
     var array = [],
-        length = (array.length = 100000000); //(一亿))
-    // for(var i=0;i<length;i++){
-    //  array[i] = 'louis';
-    // }
-    // console.log(array[0]);
-    //-------------------------for
-    var t1 = +new Date();
-    for (var i = 0; i < length; i++) {}
-    var t2 = +new Date();
-    console.log("for:" + (t2 - t1));
+        length = (array.length = 10000000); //(一千万)
+    var objects = {};
+    for (var i = 0; i < array.length; i++) {
+        objects[i] = Math.random();
+    }
 
-    //-------------------------do/while
-    var t1 = +new Date();
-    var i = 0;
-    do {
-        i++;
-    } while (i < length);
-    var t2 = +new Date();
-    console.log("do while:" + (t2 - t1));
-
-    //-------------------------forEach
-    var t1 = +new Date();
-    array.forEach(function (item) {});
-    var t2 = +new Date();
-    console.log("forEach:" + (t2 - t1));
 
     //-------------------------for in
     var t1 = +new Date();
-    for (var item in array) {}
+    for (var attr in objects) {}
     var t2 = +new Date();
     console.log("for in:" + (t2 - t1));
 
-    //------------------------- every
+    //-------------------------Object.keys
     var t1 = +new Date();
-    array.every(() => {});
+    Object.keys(objects);
     var t2 = +new Date();
-    console.log("every" + (t2 - t1));
+    console.log("Object.keys" + (t2 - t1));
 
-    //------------------------- some
+    //-------------------------Object.values
     var t1 = +new Date();
-    array.some(() => {});
+    Object.values(objects);
     var t2 = +new Date();
-    console.log("some" + (t2 - t1));
+    console.log("Object.values" + (t2 - t1));
 
-    //-------------------------map
+    //-------------------------Object.getOwnPropertyNames
     var t1 = +new Date();
-    array.map(function (num) {});
+    Object.getOwnPropertyNames(objects);
     var t2 = +new Date();
-    console.log("map:" + (t2 - t1));
-
-    //-------------------------filter
-    var t1 = +new Date();
-    array.filter(function (e, i, arr) {});
-    var t2 = +new Date();
-    console.log("filter:" + (t2 - t1));
-    //-------------------------reduce
-    var t1 = +new Date();
-    array.reduce(function (e, i, arr) {});
-    var t2 = +new Date();
-    console.log("reduce:" + (t2 - t1));
+    console.log("Object.getOwnPropertyNames" + (t2 - t1));
 </script>
 
 </html>
@@ -583,7 +553,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共14.7k字</span>
+  <span class="post-count">博客全站共14.8k字</span>
 </div>
         
 <div class="busuanzi-count">
