@@ -88,7 +88,7 @@
 <meta property="og:site_name" content="Blog">
 <meta property="og:description" content="骰子练习              body,         html {             background: #ccc;         }          .box {             width: 160px;             height: 160px;             display: flex;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-12T02:24:55.771Z">
+<meta property="og:updated_time" content="2019-10-14T03:03:54.398Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Blog">
 <meta name="twitter:description" content="骰子练习              body,         html {             background: #ccc;         }          .box {             width: 160px;             height: 160px;             display: flex;">
@@ -350,37 +350,40 @@
     </div>
 </body>
 <script>
-    var array = [],
-        length = (array.length = 10000000); //(一千万)
-    var objects = {};
-    for (var i = 0; i < array.length; i++) {
-        objects[i] = Math.random();
+    function jsonp({
+        url,
+        params,
+        cb
+    }) {
+        return new Promise((resolve, reject) => {
+            let script = document.createElement('script');
+            window[cb] = function (data) {
+                resolve(data);
+                document.body.removeChild(script)
+            }
+            params = {
+                ...params,
+                cb
+            }
+            let arrs = [];
+            for (let key in params) {
+                arrs.push(`${key}=${params[key]}`);
+            }
+            script.src = `${url}?${arrs.join('&')}`;
+            document.body.appendChild(script);
+        })
     }
 
-
-    //-------------------------for in
-    var t1 = +new Date();
-    for (var attr in objects) {}
-    var t2 = +new Date();
-    console.log("for in:" + (t2 - t1));
-
-    //-------------------------Object.keys
-    var t1 = +new Date();
-    Object.keys(objects);
-    var t2 = +new Date();
-    console.log("Object.keys" + (t2 - t1));
-
-    //-------------------------Object.values
-    var t1 = +new Date();
-    Object.values(objects);
-    var t2 = +new Date();
-    console.log("Object.values" + (t2 - t1));
-
-    //-------------------------Object.getOwnPropertyNames
-    var t1 = +new Date();
-    Object.getOwnPropertyNames(objects);
-    var t2 = +new Date();
-    console.log("Object.getOwnPropertyNames" + (t2 - t1));
+    jsonp({
+        url: 'https://image.baidu.com/httpsjsonp/pc', //此处链接为百度搜索随便找的
+        params: {
+            callback: 'imageCheckHttps',
+            _: 1571021917647,
+        },
+        cb: 'imageCheckHttps'
+    }).then((data) => {
+        console.log(data);
+    })
 </script>
 
 </html>
@@ -446,7 +449,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -459,7 +462,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -553,7 +556,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共15.4k字</span>
+  <span class="post-count">博客全站共17.8k字</span>
 </div>
         
 <div class="busuanzi-count">
