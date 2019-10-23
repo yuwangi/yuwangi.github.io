@@ -504,54 +504,21 @@
 
       
         
-          
-            <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>良好的缓存策略可以降低资源的重复加载提高网页的整体加载速度<br>通常浏览器缓存策略分为两种：强缓存和协商缓存</p>
+          <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>良好的缓存策略可以降低资源的重复加载提高网页的整体加载速度<br>通常浏览器缓存策略分为两种：强缓存和协商缓存</p>
 <h3 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h3><ul>
 <li>浏览器在加载资源时，根据请求头的expires和cache-control判断是否命中强缓存，是则直接从缓存读取资源，不会发请求到服务器。</li>
 <li>如果没有命中强缓存，浏览器一定会发送一个请求到服务器，通过last-modified和etag验证资源是否命中协商缓存，如果命中，服务器会将这个请求返回，但是不会返回这个资源的数据，依然是从缓存中读取资源</li>
-<li>如果前面两者都没有命中，直接从服务器加载资源</li>
-</ul>
-<h3 id="相同点"><a href="#相同点" class="headerlink" title="相同点"></a>相同点</h3><p>如果命中，都是从客户端缓存中加载资源，而不是从服务器加载资源数据；</p>
-<h3 id="不同点"><a href="#不同点" class="headerlink" title="不同点"></a>不同点</h3><p>强缓存不发请求到服务器，协商缓存会发请求到服务器。</p>
-<h2 id="强缓存"><a href="#强缓存" class="headerlink" title="强缓存"></a>强缓存</h2><p>强缓存通过<code>Expires</code>和<code>Cache-Control</code>两种响应头实现</p>
-<h3 id="Expires"><a href="#Expires" class="headerlink" title="Expires"></a>Expires</h3><p>Expires是http1.0提出的一个表示资源过期时间的header，它描述的是一个绝对时间，由服务器返回。<br>Expires 受限于本地时间，如果修改了本地时间，可能会造成缓存失效</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Expires: Wed, 11 May 2018 07:20:00 GMT</span><br></pre></td></tr></table></figure>
-
-<h3 id="Cache-Control"><a href="#Cache-Control" class="headerlink" title="Cache-Control"></a>Cache-Control</h3><p>Cache-Control 出现于 HTTP / 1.1，优先级高于 Expires ,表示的是相对时间</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cache-Control: max-age=315360000</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>tips:</li>
-</ul>
-<p><code>Cache-Control</code>: <code>no-cache</code>不会缓存数据到本地的说法是错误的，详情《HTTP权威指南》P182<br><img src="/images/45fc8ed04dd4.png" alt="45fc8ed04dd4.png"><br><code>Cache-Control</code>: <code>no-store</code>才是真正的不缓存数据到本地<br><code>Cache-Control</code>: <code>public</code>可以被所有用户缓存（多用户共享），包括终端和CDN等中间代理服务器<br><code>Cache-Control</code>: <code>private</code>只能被终端浏览器缓存（而且是私有缓存），不允许中继缓存服务器进行缓存</p>
-<p><img src="/images/8c6b0e4935a8.png" alt="8c6b0e4935a8.png"></p>
-<h2 id="协商缓存"><a href="#协商缓存" class="headerlink" title="协商缓存"></a>协商缓存</h2><p>当浏览器对某个资源的请求没有命中强缓存，就会发一个请求到服务器，验证协商缓存是否命中，如果协商缓存命中，请求响应返回的http状态为304并且会显示一个Not Modified的字符串</p>
-<p>协商缓存是利用的是【<code>Last-Modified</code>，<code>If-Modified-Since</code>】和【<code>ETag</code>、<code>If-None-Match</code>】这两对Header来管理的</p>
-<h3 id="Last-Modified，If-Modified-Since"><a href="#Last-Modified，If-Modified-Since" class="headerlink" title="Last-Modified，If-Modified-Since"></a>Last-Modified，If-Modified-Since</h3><p><code>Last-Modified</code> 表示本地文件最后修改日期，浏览器会在<code>request header</code>加上<code>If-Modified-Since</code>（上次返回的Last-Modified的值），询问服务器在该日期后资源是否有更新，有更新的话就会将新的资源发送回来</p>
-<p>但是如果在本地打开缓存文件，就会造成 <code>Last-Modified</code> 被修改，所以在 <code>HTTP / 1.1</code> 出现了 <code>ETag</code></p>
-<h3 id="ETag、If-None-Match"><a href="#ETag、If-None-Match" class="headerlink" title="ETag、If-None-Match"></a>ETag、If-None-Match</h3><p><code>Etag</code>就像一个指纹，资源变化都会导致<code>ETag</code>变化，跟最后修改时间没有关系，<code>ETag</code>可以保证每一个资源是唯一的</p>
-<p><code>If-None-Match</code>的header会将上次返回的<code>Etag</code>发送给服务器，询问该资源的<code>Etag</code>是否有更新，有变动就会发送新的资源回来</p>
-<p><img src="/images/fe7c729ab6e5.png" alt="fe7c729ab6e5.png"></p>
-<p><code>ETag</code>的优先级比<code>Last-Modified</code>更高</p>
-<p>具体为什么要用ETag，主要出于下面几种情况考虑：</p>
-<ul>
-<li>一些文件也许会周期性的更改，但是他的内容并不改变(仅仅改变的修改时间)，这个时候我们并不希望客户端认为这个文件被修改了，而重新GET；</li>
-<li>某些文件修改非常频繁，比如在秒以下的时间内进行修改，(比方说1s内修改了N次)，If-Modified-Since能检查到的粒度是s级的，这种修改无法判断(或者说UNIX记录MTIME只能精确到秒)；</li>
-<li>某些服务器不能精确的得到文件的最后修改时间。</li>
-</ul>
-<h2 id="整体流程图"><a href="#整体流程图" class="headerlink" title="整体流程图"></a>整体流程图</h2><p><img src="/images/79814b6971a5.png" alt="79814b6971a5.png"></p>
-<h2 id="几种状态码的区别"><a href="#几种状态码的区别" class="headerlink" title="几种状态码的区别"></a>几种状态码的区别</h2><ul>
-<li><code>200</code>：强缓Expires/Cache-Control存失效时，返回新的资源文件</li>
-<li><code>200(from cache)</code>: 强缓Expires/Cache-Control两者都存在，未过期，Cache-Control优先Expires时，浏览器从本地获取资源成功</li>
-<li><code>304(Not Modified )</code>：协商缓存Last-modified/Etag没有过期时，服务端返回状态码304</li>
-</ul>
-<p><strong>但是！但是！</strong><br>现在的200(from cache)已经变成了from disk cache(磁盘缓存)和from memory cache(内存缓存)两种<br>打开chrome控制台看一下网络请求就知道了</p>
-<p><img src="/images/20191023152346.png" alt="20191023152346.png"></p>
-
-          
+<li>如果前面两者都没有命中，直接从服务器加载资源
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/articles/2460136963.html#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
-    </div>
+    </li></ul></div>
     <div>
       
     </div>
@@ -1749,7 +1716,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共19.2k字</span>
+  <span class="post-count">博客全站共19.4k字</span>
 </div>
         
 <div class="busuanzi-count">
