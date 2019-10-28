@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="js,跨域,">
+  <meta name="keywords" content="跨域,跨域方式,js跨域方式">
 
 
 
@@ -81,13 +81,13 @@
 
 
 
-<meta name="description" content="同源策略同源策略是浏览器的一个安全功能，不同源的客户端脚本在没有明确授权的情况下，不能读写对方资源。所以 xyz.com 下的 js 脚本采用 ajax 读取 abc.com 里面的文件数据是会被拒绝的。 同源策略限制了从同一个源加载的文档或脚本如何与来自另一个源的资源进行交互。这是一个用于隔离潜在恶意文件的重要安全机制。 所谓同源是指：域名、协议、端口相同。">
-<meta name="keywords" content="js,跨域">
+<meta name="description" content="多种跨域方案详解主要写前端跨域的几种实现方式">
+<meta name="keywords" content="跨域,跨域方式,js跨域方式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="多种跨域方案详解">
 <meta property="og:url" content="https://yuwangi.github.io/articles/3222442466.html">
 <meta property="og:site_name" content="Blog">
-<meta property="og:description" content="同源策略同源策略是浏览器的一个安全功能，不同源的客户端脚本在没有明确授权的情况下，不能读写对方资源。所以 xyz.com 下的 js 脚本采用 ajax 读取 abc.com 里面的文件数据是会被拒绝的。 同源策略限制了从同一个源加载的文档或脚本如何与来自另一个源的资源进行交互。这是一个用于隔离潜在恶意文件的重要安全机制。 所谓同源是指：域名、协议、端口相同。">
+<meta property="og:description" content="多种跨域方案详解主要写前端跨域的几种实现方式">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://yuwangi.github.io/images/1564156.png">
 <meta property="og:image" content="https://yuwangi.github.io/images/165156.png">
@@ -96,10 +96,10 @@
 <meta property="og:image" content="https://yuwangi.github.io/images/46465415645.png">
 <meta property="og:image" content="https://yuwangi.github.io/images/4646416416.png">
 <meta property="og:image" content="https://yuwangi.github.io/images/494894898489.png">
-<meta property="og:updated_time" content="2019-10-22T09:16:53.303Z">
+<meta property="og:updated_time" content="2019-10-28T03:01:31.600Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="多种跨域方案详解">
-<meta name="twitter:description" content="同源策略同源策略是浏览器的一个安全功能，不同源的客户端脚本在没有明确授权的情况下，不能读写对方资源。所以 xyz.com 下的 js 脚本采用 ajax 读取 abc.com 里面的文件数据是会被拒绝的。 同源策略限制了从同一个源加载的文档或脚本如何与来自另一个源的资源进行交互。这是一个用于隔离潜在恶意文件的重要安全机制。 所谓同源是指：域名、协议、端口相同。">
+<meta name="twitter:description" content="多种跨域方案详解主要写前端跨域的几种实现方式">
 <meta name="twitter:image" content="https://yuwangi.github.io/images/1564156.png">
 
 
@@ -373,6 +373,10 @@
           
 
           
+              <div class="post-description">
+                  多种跨域方案详解主要写前端跨域的几种实现方式
+              </div>
+          
 
         </div>
       </header>
@@ -626,7 +630,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -639,7 +643,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -750,7 +754,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共21.1k字</span>
+  <span class="post-count">博客全站共22.4k字</span>
 </div>
         
 <div class="busuanzi-count">
