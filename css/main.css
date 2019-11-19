@@ -1723,8 +1723,8 @@ pre .javascript .function {
   -webkit-transform: translateZ(0);
 }
 .sidebar a {
-  color: #999;
-  border-bottom-color: #555;
+  color: #fff;
+  border-bottom-color: #fff;
 }
 .sidebar a:hover {
   color: #eee;
@@ -1876,7 +1876,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #5888b0;
+  background: #91a2ff;
 }
 .links-of-blogroll {
   font-size: 13px;

@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Shadowsocks,goflyway,goflyway 免费账号,Shadowrocket,免费账号">
+  <meta name="keywords" content="vue,axios,">
 
 
 
@@ -81,18 +81,20 @@
 
 
 
-<meta name="description" content="本篇文章分享一些科学上网 Shadowsocks、ShadowsocksR、V2Ray、Brook、Goflyway 等代理方式。为了方便访问Google 查阅资料而设，请勿用于任何非法活动（请遵守中国法律）。部分账号信息由网友贡献分享，在此感谢！">
-<meta name="keywords" content="Shadowsocks,goflyway,goflyway 免费账号,Shadowrocket,免费账号">
+<meta name="description" content="背景在平常的开发过程中，我们经常会遇到频繁切换菜单或者切换 tabs,而每一次切换都会调取接口返回数据渲染（接口请求过快，大部分还在pending中），那么这些请求就会极大的影响页面的性能，因为即便切换了页面，那些请求依然会触发下去。为了节省这部分性能，所以做了下面这些处理。">
+<meta name="keywords" content="vue,axios">
 <meta property="og:type" content="article">
-<meta property="og:title" content="梯子免费上网攻略">
-<meta property="og:url" content="https://yuwangi.github.io/articles/2729354182.html">
+<meta property="og:title" content="vue频繁切换页面、标签页解决方案">
+<meta property="og:url" content="https://yuwangi.github.io/articles/2616055594.html">
 <meta property="og:site_name" content="Blog">
-<meta property="og:description" content="本篇文章分享一些科学上网 Shadowsocks、ShadowsocksR、V2Ray、Brook、Goflyway 等代理方式。为了方便访问Google 查阅资料而设，请勿用于任何非法活动（请遵守中国法律）。部分账号信息由网友贡献分享，在此感谢！">
+<meta property="og:description" content="背景在平常的开发过程中，我们经常会遇到频繁切换菜单或者切换 tabs,而每一次切换都会调取接口返回数据渲染（接口请求过快，大部分还在pending中），那么这些请求就会极大的影响页面的性能，因为即便切换了页面，那些请求依然会触发下去。为了节省这部分性能，所以做了下面这些处理。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-28T03:30:10.446Z">
+<meta property="og:image" content="https://yuwangi.github.io/images/8FFFDC5421BAB41CE463CD27FB20A2FF.png">
+<meta property="og:updated_time" content="2019-11-19T11:49:32.254Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="梯子免费上网攻略">
-<meta name="twitter:description" content="本篇文章分享一些科学上网 Shadowsocks、ShadowsocksR、V2Ray、Brook、Goflyway 等代理方式。为了方便访问Google 查阅资料而设，请勿用于任何非法活动（请遵守中国法律）。部分账号信息由网友贡献分享，在此感谢！">
+<meta name="twitter:title" content="vue频繁切换页面、标签页解决方案">
+<meta name="twitter:description" content="背景在平常的开发过程中，我们经常会遇到频繁切换菜单或者切换 tabs,而每一次切换都会调取接口返回数据渲染（接口请求过快，大部分还在pending中），那么这些请求就会极大的影响页面的性能，因为即便切换了页面，那些请求依然会触发下去。为了节省这部分性能，所以做了下面这些处理。">
+<meta name="twitter:image" content="https://yuwangi.github.io/images/8FFFDC5421BAB41CE463CD27FB20A2FF.png">
 
 
 
@@ -122,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="https://yuwangi.github.io/articles/2729354182.html">
+  <link rel="canonical" href="https://yuwangi.github.io/articles/2616055594.html">
 
 
 
 
 
-  <title>梯子免费上网攻略 | Blog</title>
+  <title>vue频繁切换页面、标签页解决方案 | Blog</title>
   
 
 
@@ -306,7 +308,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yuwangi.github.io/articles/2729354182.html">
+    <link itemprop="mainEntityOfPage" href="https://yuwangi.github.io/articles/2616055594.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yuwangi">
@@ -323,7 +325,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">梯子免费上网攻略</h1>
+          <h1 class="post-title" itemprop="name headline">vue频繁切换页面、标签页解决方案</h1>
         
 
         <div class="post-meta">
@@ -336,8 +338,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-10T11:03:28+08:00">
-                2019-10-10
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-10T19:36:38+08:00">
+                2019-11-10
               </time>
             
 
@@ -379,15 +381,23 @@
       
 
       
-        <p>本篇文章分享一些科学上网 Shadowsocks、ShadowsocksR、V2Ray、Brook、Goflyway 等代理方式。为了方便访问Google 查阅资料而设，请勿用于任何非法活动（请遵守中国法律）。部分账号信息由网友贡献分享，在此感谢！</p>
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在平常的开发过程中，我们经常会遇到频繁切换菜单或者切换 tabs,而每一次切换都会调取接口返回数据渲染（接口请求过快，大部分还在<strong>pending</strong>中），那么这些请求就会极大的影响页面的性能，因为即便切换了页面，那些请求依然会触发下去。为了节省这部分性能，所以做了下面这些处理。</p>
 <a id="more"></a>
-<h2 id="电脑"><a href="#电脑" class="headerlink" title="电脑"></a>电脑</h2><p>此处只介绍一种chrome浏览器插件setup VPN<br>资源链接: <a href="https://pan.baidu.com/s/1gtA3D7DVT180hXP7ViIAUA" target="_blank" rel="noopener">https://pan.baidu.com/s/1gtA3D7DVT180hXP7ViIAUA</a> 提取码: x1y2（如不能使用，请邮件联系）</p>
-<p>操作步骤：<br>1、打开chrome浏览器<br>2、工具栏 …<br>3、更多工具<br>4、扩展程序<br>5、把下载下来的资源拖放到窗口<br>6、启用扩展程序<br>7、注册邮箱账号<br>8、点击选用不同国家地区使用</p>
-<h2 id="苹果手机"><a href="#苹果手机" class="headerlink" title="苹果手机"></a>苹果手机</h2><p>苹果手机由于<code>app store</code>限制,无法下载代理软件。特此分享一个免费的美区ID。账号：<code>gd5@jufxf.com</code>，密码：<code>Macziyuan.com2018</code>,禁止将此账号分享给其他人。<br>Tips:账号如不能使用建议自己注册一个  攻略：<a href="https://www.hurbai.com/iOS/60" target="_blank" rel="noopener">https://www.hurbai.com/iOS/60</a></p>
-<p>1、手机打开设置<br>2、Apple ID、iCloud、iTunes等<br>3、iTunes Store与App Store<br>4、选中Apple ID 退出登陆<br>5、登陆提供的账号<br>6、在app store中搜索Shadowrocket并下载</p>
-<p>此处介绍几个免费SSR账号网址<br><a href="https://chenxinbo.com/free" target="_blank" rel="noopener">https://chenxinbo.com/free</a><br><a href="https://free-ss.site/" target="_blank" rel="noopener">https://free-ss.site/</a><br><a href="https://lncn.org/" target="_blank" rel="noopener">https://lncn.org/</a></p>
-<p>使用方法很简单，里面提供了一些ss链接或者二维码，打开下载的软件直接使用即可。</p>
-<h2 id="安卓手机"><a href="#安卓手机" class="headerlink" title="安卓手机"></a>安卓手机</h2><p>直接下载Shadowrocket软件，然后通过前边分享的SSR账号直接使用即可。</p>
+
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ul>
+<li>Tips:本文主要根据 axios 来做的处理</li>
+</ul>
+<h3 id="axios-文件配置"><a href="#axios-文件配置" class="headerlink" title="axios 文件配置"></a>axios 文件配置</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//axios文件</span></span><br><span class="line"><span class="built_in">window</span>.canCancelAxios = []; <span class="comment">//全局 所有拦截对象存储</span></span><br><span class="line"><span class="built_in">window</span>.canAxios = &#123;&#125;; <span class="comment">//拦截对象去重</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// http request 拦截器</span></span><br><span class="line">axios.interceptors.request.use(</span><br><span class="line">  config =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> whiteList = [<span class="string">"/order/login.htm"</span>]; <span class="comment">// 白名单接口</span></span><br><span class="line">    <span class="keyword">if</span> (config.url &amp;&amp; whiteList.every(<span class="function"><span class="params">item</span> =&gt;</span> !config.url.includes(item))) &#123;</span><br><span class="line">      <span class="keyword">if</span> (canAxios[config.url]) &#123;</span><br><span class="line">        <span class="comment">//过滤</span></span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        config.cancelToken = <span class="keyword">new</span> axios.CancelToken(<span class="function"><span class="keyword">function</span>(<span class="params">c</span>) </span>&#123;</span><br><span class="line">          <span class="built_in">window</span>.canCancelAxios.push(&#123; <span class="attr">key</span>: config.url || <span class="string">""</span>, <span class="attr">cancel</span>: c &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> config;</span><br><span class="line">  &#125;,</span><br><span class="line">  err =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(err);</span><br><span class="line">  &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h3 id="定义取消方法"><a href="#定义取消方法" class="headerlink" title="定义取消方法"></a>定义取消方法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 取消axios请求</span></span><br><span class="line"><span class="comment"> * @param cellArr 要取消的接口；如果不传参，则取消canCancelAxios保存的所有接口</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">cancelAxios</span>(<span class="params">cellArr = []</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (cellArr.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    cellArr.forEach(<span class="function"><span class="params">val</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="built_in">window</span>.canCancelAxios.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">window</span>.canCancelAxios[i].key === val) &#123;</span><br><span class="line">          <span class="built_in">window</span>.canCancelAxios[i].cancel();</span><br><span class="line">          <span class="built_in">window</span>.canCancelAxios.splice(i, <span class="number">1</span>);</span><br><span class="line">          i--;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="built_in">window</span>.canCancelAxios.length; i++) &#123;</span><br><span class="line">      <span class="built_in">window</span>.canCancelAxios[i].cancel();</span><br><span class="line">      <span class="built_in">window</span>.canCancelAxios.splice(i, <span class="number">1</span>);</span><br><span class="line">      i--;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="路由切换时，取消-axios-请求"><a href="#路由切换时，取消-axios-请求" class="headerlink" title="路由切换时，取消 axios 请求"></a>路由切换时，取消 axios 请求</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cancelAxios <span class="keyword">from</span> <span class="string">"***"</span>;</span><br><span class="line">router.beforeEach(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">  cancelAxios();</span><br><span class="line">  <span class="comment">// 进行其他业务操作</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="切换-tab-页时-取消部分请求"><a href="#切换-tab-页时-取消部分请求" class="headerlink" title="切换 tab 页时,取消部分请求"></a>切换 tab 页时,取消部分请求</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//此处用的iview ui,由于业务逻辑修改 把keep-alive关闭了... 此处忽略</span></span><br><span class="line">&lt;Tabs type=<span class="string">"card"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"Tabs"</span> :animated=<span class="string">"false"</span> @on-click=<span class="string">"changeTabs"</span>&gt;</span><br><span class="line">      &lt;TabPane :label=<span class="string">"PENDING_Title"</span>&gt;</span><br><span class="line">        &lt;!-- <span class="xml"><span class="tag">&lt;<span class="name">keep-alive</span>&gt;</span> --&gt;</span></span><br><span class="line">        &lt;pending v-if="tabIndex == 0" /&gt;</span><br><span class="line"><span class="xml">        <span class="comment">&lt;!-- &lt;/keep-alive&gt; --&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">TabPane</span>&gt;</span></span></span><br><span class="line">      &lt;TabPane :label=<span class="string">"CONFIRMER_Title"</span>&gt;</span><br><span class="line">        &lt;!-- <span class="xml"><span class="tag">&lt;<span class="name">keep-alive</span>&gt;</span> --&gt;</span></span><br><span class="line">        &lt;confirmer v-if="tabIndex == 1" /&gt;</span><br><span class="line"><span class="xml">        <span class="comment">&lt;!-- &lt;/keep-alive&gt; --&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">TabPane</span>&gt;</span></span></span><br><span class="line">      &lt;TabPane :label=<span class="string">"READY_TO_SHIP_Title"</span>&gt;</span><br><span class="line">        &lt;!-- <span class="xml"><span class="tag">&lt;<span class="name">keep-alive</span>&gt;</span> --&gt;</span></span><br><span class="line">        &lt;readyShip v-if="tabIndex == 2" /&gt;</span><br><span class="line"><span class="xml">        <span class="comment">&lt;!-- &lt;/keep-alive&gt; --&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">TabPane</span>&gt;</span></span></span><br><span class="line">      &lt;TabPane :label=<span class="string">"SHIPPED_Title"</span>&gt;</span><br><span class="line">        &lt;!-- <span class="xml"><span class="tag">&lt;<span class="name">keep-alive</span>&gt;</span> --&gt;</span></span><br><span class="line">        &lt;shipped v-if="tabIndex == 3" /&gt;</span><br><span class="line"><span class="xml">        <span class="comment">&lt;!-- &lt;/keep-alive&gt; --&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">TabPane</span>&gt;</span></span></span><br><span class="line">      &lt;TabPane :label=<span class="string">"CANCELED_Title"</span>&gt;</span><br><span class="line">        &lt;!-- <span class="xml"><span class="tag">&lt;<span class="name">keep-alive</span>&gt;</span> --&gt;</span></span><br><span class="line">        &lt;canceled v-if="tabIndex == 4" /&gt;</span><br><span class="line"><span class="xml">        <span class="comment">&lt;!-- &lt;/keep-alive&gt; --&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">TabPane</span>&gt;</span></span></span><br><span class="line">    &lt;<span class="regexp">/Tabs&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//此处就是  切换tabs时 tabIndex会改变,当值变化时 取消一些正在请求的接口</span></span><br><span class="line"><span class="keyword">import</span> &#123; cancelAxios &#125; <span class="keyword">from</span> <span class="string">"@/libs/cancelAxios"</span>;</span><br><span class="line"></span><br><span class="line">watch: &#123;</span><br><span class="line">    tabIndex() &#123;</span><br><span class="line">      <span class="keyword">this</span>.cancelAxios([<span class="string">"/order/listOrder.htm"</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
+<h3 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h3><p>最后奉上效果图<br><img src="/images/8FFFDC5421BAB41CE463CD27FB20A2FF.png" alt="47240234723042.PNG"></p>
 
       
     </div>
@@ -407,7 +417,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Shadowsocks/" rel="tag"><i class="fa fa-tag"></i> Shadowsocks</a>
+            <a href="/tags/vue/" rel="tag"><i class="fa fa-tag"></i> vue</a>
+          
+            <a href="/tags/axios/" rel="tag"><i class="fa fa-tag"></i> axios</a>
           
         </div>
       
@@ -420,8 +432,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/articles/2516740711.html" rel="next" title="Flex布局详解及实战">
-                <i class="fa fa-chevron-left"></i> Flex布局详解及实战
+              <a href="/articles/1243066710.html" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
               </a>
             
           </div>
@@ -430,8 +442,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/articles/557616484.html" rel="prev" title="Vue路由守卫与登陆权限控制">
-                Vue路由守卫与登陆权限控制 <i class="fa fa-chevron-right"></i>
+              <a href="/articles/2654233593.html" rel="prev" title="vue-cli3 资源CDN优化加载">
+                vue-cli3 资源CDN优化加载 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -604,7 +616,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#电脑"><span class="nav-number">1.</span> <span class="nav-text">电脑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#苹果手机"><span class="nav-number">2.</span> <span class="nav-text">苹果手机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安卓手机"><span class="nav-number">3.</span> <span class="nav-text">安卓手机</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">2.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#axios-文件配置"><span class="nav-number">2.1.</span> <span class="nav-text">axios 文件配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义取消方法"><span class="nav-number">2.2.</span> <span class="nav-text">定义取消方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由切换时，取消-axios-请求"><span class="nav-number">2.3.</span> <span class="nav-text">路由切换时，取消 axios 请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#切换-tab-页时-取消部分请求"><span class="nav-number">2.4.</span> <span class="nav-text">切换 tab 页时,取消部分请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结尾"><span class="nav-number">2.5.</span> <span class="nav-text">结尾</span></a></li></ol></li></ol></div>
             
 
           </div>
