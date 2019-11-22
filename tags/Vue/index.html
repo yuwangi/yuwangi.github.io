@@ -84,7 +84,7 @@
 <meta name="keywords" content="Blog">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Blog">
-<meta property="og:url" content="https://yuwangi.github.io/tags/vue/index.html">
+<meta property="og:url" content="https://yuwangi.github.io/tags/Vue/index.html">
 <meta property="og:site_name" content="Blog">
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
@@ -118,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="https://yuwangi.github.io/tags/vue/">
+  <link rel="canonical" href="https://yuwangi.github.io/tags/Vue/">
 
 
 
 
 
-  <title>Tag: vue | Blog</title>
+  <title>Tag: Vue | Blog</title>
   
 
 
@@ -295,7 +295,7 @@
 
     <div id="posts" class="posts-collapse">
       <div class="collection-title">
-        <h1>vue<small>Tag</small>
+        <h1>Vue<small>Tag</small>
         </h1>
       </div>
 
@@ -307,17 +307,95 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/articles/2616055594.html" itemprop="url">
+            <a class="post-title-link" href="/articles/1320895259.html" itemprop="url">
               
-                <span itemprop="name">vue频繁切换页面、标签页解决方案</span>
+                <span itemprop="name">Vue2.0响应式原理</span>
               
             </a>
         
       </h2>
 
       <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-11-10T19:36:38+08:00" content="2019-11-10">
-          11-10
+        <time class="post-time" itemprop="dateCreated" datetime="2019-10-14T10:20:13+08:00" content="2019-10-14">
+          10-14
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+      
+        
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/articles/2716464634.html" itemprop="url">
+              
+                <span itemprop="name">Vue3.0响应式原理</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated" datetime="2019-10-12T10:59:41+08:00" content="2019-10-12">
+          10-12
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+      
+        
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/articles/3679178790.html" itemprop="url">
+              
+                <span itemprop="name">Vue中.sync 修饰符：进行父子组件间相互传递数据</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated" datetime="2019-10-11T15:09:17+08:00" content="2019-10-11">
+          10-11
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+      
+        
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/articles/557616484.html" itemprop="url">
+              
+                <span itemprop="name">Vue路由守卫与登陆权限控制</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated" datetime="2019-10-10T11:55:31+08:00" content="2019-10-10">
+          10-10
         </time>
       </div>
 
@@ -379,7 +457,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -392,7 +470,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -486,7 +564,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共29.1k字</span>
+  <span class="post-count">博客全站共29.4k字</span>
 </div>
         
 <div class="busuanzi-count">
@@ -923,86 +1001,6 @@
               resultItems.sort(function (resultLeft, resultRight) {
                 if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
                   return resultRight.searchTextCount - resultLeft.searchTextCount;
-                } else if (resultLeft.hitCount !== resultRight.hitCount) {
-                  return resultRight.hitCount - resultLeft.hitCount;
-                } else {
-                  return resultRight.id - resultLeft.id;
-                }
-              });
-              var searchResultList = '<ul class=\"search-result-list\">';
-              resultItems.forEach(function (result) {
-                searchResultList += result.item;
-              })
-              searchResultList += "</ul>";
-              resultContent.innerHTML = searchResultList;
-            }
-          }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
-              }
-            });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
-        }
-      });
-    }
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
-      }
-    });
-  </script>
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-
-</body>
-</html>
-                return resultRight.searchTextCount - resultLeft.searchTextCount;
                 } else if (resultLeft.hitCount !== resultRight.hitCount) {
                   return resultRight.hitCount - resultLeft.hitCount;
                 } else {
