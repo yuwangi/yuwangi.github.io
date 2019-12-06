@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[git分支权限管理及Merge Request]]></title>
+    <url>%2Farticles%2F1972266884.html</url>
+    <content type="text"><![CDATA[前言团队开发过程中合并分支随意,遇到冲突总是几人坐在一起解决冲突，但是这种方式做不到过程的留痕。后期出现 bug 又忘记之前代码如何编写的了,因此需要使用 Git 的 Merge Request 进行过程管理和 code review。 角色权限管理在 GitLab 中角色的权限一般有：Guest、Reporter、Developer、Maintainer、Owner。 下面就来设置权限 Merge Request开发过程中拥有 Developer 权限的用户提交被保护分支时,需要在分支管理页面提交 Merge Request，然后填写开发的需求信息。如下图： Tips:因为此时无资源，所以从网上找的图片。 然后拥有 Maintainer 权限的用户做 code review,选择是同意合并，还是拒绝合并。]]></content>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[前端埋点之数据监控]]></title>
+    <url>%2Farticles%2F2142221546.html</url>
+    <content type="text"><![CDATA[前言前端埋点主要是为了服务运营人员采集用户行为数据，进行后续数据分析工作的工具。]]></content>
+      <tags>
+        <tag>前端埋点</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Sentry 前端异常监控]]></title>
     <url>%2Farticles%2F1179895217.html</url>
     <content type="text"><![CDATA[前言起初神创造天地，天地处于一片混沌状态，神说，要有光，于是便有了光。———《圣经》 概述Sentry是一款国外的异常监控开源服务，名字翻译过来就是“哨兵”。有没有感觉像《冰与火》里的守夜人，其实也差不多，把 bug 想成异鬼就行了。 对于任何一个项目而言，本地测试肯定做不到 100%覆盖，而且，我们也不能保证用户能按照我们的预期进行操作，其实对我而言，用户才是最好的测试者，但是我们不能奢求每个用户遇到问题时候都会主动向我们反馈。 故而，我们需要在项目出现异常时主动对其进行收集上报，分析原因和影响后制定下一步解决方案。 配置1、首先访问官网https://sentry.io注册账号2、创建项目 选择你用的前端框架 12345678//下面是vue的安装方式，其他框架安装指示做就可以了# Using yarnyarn add @sentry/browseryarn add @sentry/integrations# Using npmnpm install @sentry/browsernpm install @sentry/integrations 注意下面的配置最好在 production 环境配置，否则会影响 debug 123456789//main.js配置import Vue from "vue";import * as Sentry from "@sentry/browser";import * as Integrations from "@sentry/integrations";Sentry.init(&#123; dsn: "https://214bbc6a0a66455d********51357ef6@sentry.io/1827364", integrations: [new Integrations.Vue(&#123; Vue, attachProps: true &#125;)]&#125;); 结语最后奉上效果图 bug 复现步骤]]></content>
       <tags>
-        <tag>vue</tag>
+        <tag>Vue</tag>
         <tag>Sentry</tag>
       </tags>
   </entry>
@@ -19,14 +35,9 @@
     <url>%2Farticles%2F2616055594.html</url>
     <content type="text"><![CDATA[背景在平常的开发过程中，我们经常会遇到频繁切换菜单或者切换 tabs,而每一次切换都会调取接口返回数据渲染（接口请求过快，大部分还在pending中），那么这些请求就会极大的影响页面的性能，因为即便切换了页面，那些请求依然会触发下去。为了节省这部分性能，所以做了下面这些处理。 配置 Tips:本文主要根据 axios 来做的处理 axios 文件配置123456789101112131415161718192021222324//axios文件window.canCancelAxios = []; //全局 所有拦截对象存储window.canAxios = &#123;&#125;; //拦截对象去重// http request 拦截器axios.interceptors.request.use( config =&gt; &#123; let whiteList = ["/order/login.htm"]; // 白名单接口 if (config.url &amp;&amp; whiteList.every(item =&gt; !config.url.includes(item))) &#123; if (canAxios[config.url]) &#123; //过滤 &#125; else &#123; config.cancelToken = new axios.CancelToken(function(c) &#123; window.canCancelAxios.push(&#123; key: config.url || "", cancel: c &#125;); &#125;); &#125; &#125; return config; &#125;, err =&gt; &#123; return Promise.reject(err); &#125;); 定义取消方法1234567891011121314151617181920212223/** * 取消axios请求 * @param cellArr 要取消的接口；如果不传参，则取消canCancelAxios保存的所有接口 */export function cancelAxios(cellArr = []) &#123; if (cellArr.length &gt; 0) &#123; cellArr.forEach(val =&gt; &#123; for (let i = 0; i &lt; window.canCancelAxios.length; i++) &#123; if (window.canCancelAxios[i].key === val) &#123; window.canCancelAxios[i].cancel(); window.canCancelAxios.splice(i, 1); i--; &#125; &#125; &#125;); &#125; else &#123; for (let i = 0; i &lt; window.canCancelAxios.length; i++) &#123; window.canCancelAxios[i].cancel(); window.canCancelAxios.splice(i, 1); i--; &#125; &#125;&#125; 路由切换时，取消 axios 请求12345import cancelAxios from "***";router.beforeEach((to, from, next) =&gt; &#123; cancelAxios(); // 进行其他业务操作&#125;); 切换 tab 页时,取消部分请求12345678910111213141516171819202122232425262728//此处用的iview ui,由于业务逻辑修改 把keep-alive关闭了... 此处忽略&lt;Tabs type="card" class="Tabs" :animated="false" @on-click="changeTabs"&gt; &lt;TabPane :label="PENDING_Title"&gt; &lt;!-- &lt;keep-alive&gt; --&gt; &lt;pending v-if="tabIndex == 0" /&gt; &lt;!-- &lt;/keep-alive&gt; --&gt; &lt;/TabPane&gt; &lt;TabPane :label="CONFIRMER_Title"&gt; &lt;!-- &lt;keep-alive&gt; --&gt; &lt;confirmer v-if="tabIndex == 1" /&gt; &lt;!-- &lt;/keep-alive&gt; --&gt; &lt;/TabPane&gt; &lt;TabPane :label="READY_TO_SHIP_Title"&gt; &lt;!-- &lt;keep-alive&gt; --&gt; &lt;readyShip v-if="tabIndex == 2" /&gt; &lt;!-- &lt;/keep-alive&gt; --&gt; &lt;/TabPane&gt; &lt;TabPane :label="SHIPPED_Title"&gt; &lt;!-- &lt;keep-alive&gt; --&gt; &lt;shipped v-if="tabIndex == 3" /&gt; &lt;!-- &lt;/keep-alive&gt; --&gt; &lt;/TabPane&gt; &lt;TabPane :label="CANCELED_Title"&gt; &lt;!-- &lt;keep-alive&gt; --&gt; &lt;canceled v-if="tabIndex == 4" /&gt; &lt;!-- &lt;/keep-alive&gt; --&gt; &lt;/TabPane&gt; &lt;/Tabs&gt; 12345678//此处就是 切换tabs时 tabIndex会改变,当值变化时 取消一些正在请求的接口import &#123; cancelAxios &#125; from "@/libs/cancelAxios";watch: &#123; tabIndex() &#123; this.cancelAxios(["/order/listOrder.htm"]); &#125; &#125;, 结尾最后奉上效果图]]></content>
       <tags>
-        <tag>vue</tag>
+        <tag>Vue</tag>
         <tag>axios</tag>
       </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2Farticles%2F1243066710.html</url>
-    <content type="text"><![CDATA[第一篇文章自然要用Hello World开头，写博客就是想把平常用到的东西积累下来。 Hello World1console.log('Hello World')]]></content>
   </entry>
   <entry>
     <title><![CDATA[web前端面试总结]]></title>
@@ -176,5 +187,10 @@
       <tags>
         <tag>Mock</tag>
       </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2Farticles%2F1243066710.html</url>
+    <content type="text"><![CDATA[第一篇文章自然要用 Hello World 开头，写博客就是想把平常用到的东西积累下来。 Hello World1console.log("Hello World");]]></content>
   </entry>
 </search>
