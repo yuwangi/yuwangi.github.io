@@ -90,7 +90,7 @@
 <meta property="og:description" content="背景背景就是项目打包chunk-vendors依赖文件太大，导致初次加载很慢… 所以就用到了 CDN 优化加载。 配置对于 vue，vuex，vue-router，axios，iview 等我们可以利用 webpack 的 externals 参数来配置，这里我们设定只需要在生产环境中才需要使用。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://yuwangi.github.io/images/fwehofhewof.png">
-<meta property="og:updated_time" content="2019-12-06T08:06:37.626Z">
+<meta property="og:updated_time" content="2019-12-07T06:41:47.131Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue-cli3 资源CDN优化加载">
 <meta name="twitter:description" content="背景背景就是项目打包chunk-vendors依赖文件太大，导致初次加载很慢… 所以就用到了 CDN 优化加载。 配置对于 vue，vuex，vue-router，axios，iview 等我们可以利用 webpack 的 externals 参数来配置，这里我们设定只需要在生产环境中才需要使用。">
@@ -405,6 +405,9 @@
 <h2 id="nginx-配置-本地预览效果"><a href="#nginx-配置-本地预览效果" class="headerlink" title="nginx 配置 本地预览效果"></a>nginx 配置 本地预览效果</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen       <span class="number">9007</span>;<span class="comment">//端口</span></span><br><span class="line">        server_name  localhost;</span><br><span class="line"></span><br><span class="line">        #charset koi8-r;</span><br><span class="line"></span><br><span class="line">        #access_log  logs/host.access.log  main;</span><br><span class="line"></span><br><span class="line">        location ^~ <span class="regexp">/store/</span> &#123; <span class="comment">//如果资源为根目录的请用/</span></span><br><span class="line">            # autoindex off;</span><br><span class="line">            try_files $uri $uri/ <span class="regexp">/store/</span>;</span><br><span class="line">            alias  F:\\www\\hub-frontend\\dist\\;<span class="comment">//打包资源本地路径</span></span><br><span class="line">            index index.html;</span><br><span class="line">        &#125;</span><br><span class="line">        location /opec-store-api/ &#123;<span class="comment">//接口转发</span></span><br><span class="line">            rewrite ^/opec-store-api/(.*)$ /opec-store-api/$1 break;  #所有对后端的请求加一个api前缀方便区分，真正访问的时候移除这个前缀</span><br><span class="line">            # API Server</span><br><span class="line">            proxy_pass http:<span class="comment">//test.test.test.test/;//需要转发的地址</span></span><br><span class="line"></span><br><span class="line">            #将真正的请求代理到serverB,即真实的服务器地址，ajax的url为/api/user/1的请求将会访问http://www.serverB.com/user/1</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><img src="/images/fwehofhewof.png" alt="eee"></p>
+<h2 id="Node-js-静态文件服务器"><a href="#Node-js-静态文件服务器" class="headerlink" title="Node.js 静态文件服务器"></a>Node.js 静态文件服务器</h2><p><code>https://github.com/zeit/serve</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install -g serve</span><br><span class="line"><span class="comment"># -s 参数的意思是将其架设在 Single-Page Application 模式下</span></span><br><span class="line"><span class="comment"># 这个模式会处理即将提到的路由问题</span></span><br><span class="line">serve -s dist</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -615,7 +618,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">2.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nginx-配置-本地预览效果"><span class="nav-number">3.</span> <span class="nav-text">nginx 配置 本地预览效果</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">2.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nginx-配置-本地预览效果"><span class="nav-number">3.</span> <span class="nav-text">nginx 配置 本地预览效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Node-js-静态文件服务器"><span class="nav-number">4.</span> <span class="nav-text">Node.js 静态文件服务器</span></a></li></ol></div>
             
 
           </div>
