@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[前端开发环境配置]]></title>
+    <url>%2Farticles%2F1223383549.html</url>
+    <content type="text"><![CDATA[背景开发过程中，我们经常遇到测试环境需要一种配置，线上环境另外一种配置，每次上线前都要修改一下配置，这样的管理会给我们的开发工作带来一些不必要的麻烦，所以就需要对前端开发环境进行一个配置。 那么如何才能做环境的配置呢？这里我们就用到Node环境变量。 配置Node环境变量我们开发过程中经常遇到，就是process.env,然后我就查了一下官方文档http://nodejs.cn/api/process.html#process_process_env,pricess.env属性返回包含用户环境的对象。 我们主要可以用它来做开启 sourceMap、后端域名的切换、webpack 相关环境配置等等。 Windows 配置 12345678#node中常用的到的环境变量是NODE_ENV，首先查看是否存在set NODE_ENV#如果不存在则添加环境变量set NODE_ENV=production#环境变量追加值 set 变量名=%变量名%;变量内容set path=%path%;C:\web;C:\Tools#某些时候需要删除环境变量set NODE_ENV= Linux 配置 12345678910#node中常用的到的环境变量是NODE_ENV，首先查看是否存在echo $NODE_ENV#如果不存在则添加环境变量export NODE_ENV=production#环境变量追加值export path=$path:/home/download:/usr/local/#某些时候需要删除环境变量unset NODE_ENV#某些时候需要显示所有的环境变量env 所有系统都支持的配置 123456#首先我们需要安装一个npm 包npm install --save-dev cross-env# 然后在webpack中cross-env WEBPACK_ENV=dev vue-cli-service serve --open 实践12345678910111213141516//webpack配置module.exports = &#123; // Project deployment base // By default we assume your app will be deployed at the root of a domain, // e.g. https://www.my-app.com/ // If your app is deployed at a sub-path, you will need to specify that // sub-path here. For example, if your app is deployed at // https://www.foobar.com/my-app/ // then change this to '/my-app/' baseUrl: BASE_URL, publicPath: process.env.WEBPACK_ENV == "test" || process.env.WEBPACK_ENV == "dev" ? "/scm/" : "/", lintOnSave: true&#125;; 123456789#package.json"scripts": &#123; "dev": "cross-env WEBPACK_ENV=dev vue-cli-service serve --open", "build": "cross-env WEBPACK_ENV=test vue-cli-service build", "prod": "cross-env WEBPACK_ENV=prod vue-cli-service build", "lint": "vue-cli-service lint", "test:unit": "vue-cli-service test:unit", "test:e2e": "vue-cli-service test:e2e" &#125;,]]></content>
+      <tags>
+        <tag>node-env</tag>
+        <tag>环境配置</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[git分支权限管理及Merge Request]]></title>
     <url>%2Farticles%2F1972266884.html</url>
     <content type="text"><![CDATA[前言团队开发过程中合并分支随意,遇到冲突总是几人坐在一起解决冲突，但是这种方式做不到过程的留痕。后期出现 bug 又忘记之前代码如何编写的了,因此需要使用 Git 的 Merge Request 进行过程管理和 code review。 角色权限管理在 GitLab 中角色的权限一般有：Guest、Reporter、Developer、Maintainer、Owner。 下面就来设置权限 Merge Request开发过程中拥有 Developer 权限的用户提交被保护分支时,需要在分支管理页面提交 Merge Request，然后填写开发的需求信息。如下图： Tips:因为此时无资源，所以从网上找的图片。 然后拥有 Maintainer 权限的用户做 code review,选择是同意合并，还是拒绝合并。]]></content>
