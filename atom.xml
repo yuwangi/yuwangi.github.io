@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://yuwangi.github.io/"/>
-  <updated>2019-12-26T13:05:05.360Z</updated>
+  <updated>2019-12-28T13:59:07.329Z</updated>
   <id>https://yuwangi.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>前端权限之按钮级别控制</title>
+    <link href="https://yuwangi.github.io/articles/1414629290.html"/>
+    <id>https://yuwangi.github.io/articles/1414629290.html</id>
+    <published>2019-12-28T07:35:03.000Z</published>
+    <updated>2019-12-28T13:59:07.329Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于公司新项目需要做全集团组织架构后台管理系统,所以需要做到动态路由树和按钮级别权限。什么?你说为啥这么麻烦？按角色权限不好吗？ 我一个小前端哪有什么话语权… T_T 。</p><a id="more"></a><h2 id="配置篇"><a href="#配置篇" class="headerlink" title="配置篇"></a>配置篇</h2><p>1、首先要跟后台约定按钮权限树(用户进入页面 都有哪些按钮权限)</p><p><img src="/images/fwejfowehfuowehaui.png" alt="fwejfowehfuowehaui"></p><p>2、每个页面都有查看、编辑、添加、删除等权限(这些权限分类基本可以 cover 项目需求,不够再加…)</p><p>3、登录时获取该用户已有的权限</p><p><img src="/images/fejwofhwoeiahfowaehfoweah.png" alt="fejwofhwoeiahfowaehfoweah"></p><p>4、把得到的按钮权限生成数组,放到<code>sessionstorage</code>中保存</p><p>5、定义权限判断指令</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//directives.js</span></span><br><span class="line"><span class="keyword">const</span> directives = &#123;</span><br><span class="line">  has: &#123;</span><br><span class="line">    bind: <span class="function"><span class="keyword">function</span>(<span class="params">el, binding, vnode</span>) </span>&#123;</span><br><span class="line">      <span class="comment">// 获取页面按钮权限</span></span><br><span class="line">      <span class="keyword">let</span> _flag = <span class="literal">false</span>;</span><br><span class="line">      <span class="keyword">if</span> (binding.value) &#123;</span><br><span class="line">        _flag = <span class="literal">true</span>;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (_flag &amp;&amp; !Vue.prototype.$_has(binding.value)) &#123;</span><br><span class="line">        el.parentNode.removeChild(el);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> directives;</span><br></pre></td></tr></table></figure><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//directive/index.js</span></span><br><span class="line">Vue.directive(<span class="string">"has"</span>, directive.has);</span><br></pre></td></tr></table></figure><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//libs/has.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; GET_SESSION_STORAGE &#125; <span class="keyword">from</span> <span class="string">"@/libs/util"</span>;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @name 按钮权限管理</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @param &#123;*&#125; Vue</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> install = <span class="function"><span class="keyword">function</span>(<span class="params">Vue</span>) </span>&#123;</span><br><span class="line">  Vue.prototype.$_has = <span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> _flag = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">let</span> btnPermissions = GET_SESSION_STORAGE(<span class="string">"btnPermissions"</span>);</span><br><span class="line">    <span class="keyword">if</span> (btnPermissions &amp;&amp; btnPermissions.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="comment">// 判断当前传值在权限树中是否存在</span></span><br><span class="line">      _flag = btnPermissions.indexOf(value) &gt; <span class="number">-1</span> ? <span class="literal">true</span> : <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> _flag;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> install;</span><br></pre></td></tr></table></figure><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//main.js</span></span><br><span class="line"><span class="keyword">import</span> has <span class="keyword">from</span> <span class="string">"@/libs/has"</span>;</span><br><span class="line">Vue.use(has);</span><br></pre></td></tr></table></figure><p>6、页面绑定自定义指令分为两种:一种页面上的按钮、一种组件中的按钮(这种不能使用自定义指令)</p><p>第一种、</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span></span></span><br><span class="line"><span class="tag">  <span class="attr">type</span>=<span class="string">"primary"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">class</span>=<span class="string">"search-btn"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">:loading</span>=<span class="string">"loading"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-has</span>=<span class="string">"'Resource-readOnly'"</span></span></span><br><span class="line"><span class="tag">  @<span class="attr">click</span>=<span class="string">"handleGetResourceTreeList"</span></span></span><br><span class="line"><span class="tag">&gt;</span></span><br><span class="line">  查询</span><br><span class="line"><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure><p>第二种、</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//这种直接用我们在main.js中写的方法即可</span><br><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">v-if</span>=<span class="string">"$_has('ResourceManage-edit')"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"operation-btn"</span> @<span class="attr">click</span>=<span class="string">"handleTableEdit(scope.row)"</span>&gt;</span>编辑<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"operation-btn"</span> @<span class="attr">click</span>=<span class="string">"handleTableRole(scope.row)"</span>&gt;</span>角色关联<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure><h2 id="效果预览"><a href="#效果预览" class="headerlink" title="效果预览"></a>效果预览</h2><p>首先该用户有页面权限</p><p><img src="/images/werfhweoahfoiwae.png" alt="werfhweoahfoiwae"></p><p>去掉删除按钮资源绑定的角色</p><p><img src="/images/fwefwefwafwaeffwaf.png" alt="fwefwefwafwaeffwaf"></p><p><img src="/images/wefwefewafwaegrehge.png" alt="wefwefewafwaegrehge"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;由于公司新项目需要做全集团组织架构后台管理系统,所以需要做到动态路由树和按钮级别权限。什么?你说为啥这么麻烦？按角色权限不好吗？ 我一个小前端哪有什么话语权… T_T 。&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="权限控制" scheme="https://yuwangi.github.io/tags/%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/"/>
+    
+      <category term="VUE自定义指令" scheme="https://yuwangi.github.io/tags/VUE%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4/"/>
+    
+      <category term="VUE按钮权限" scheme="https://yuwangi.github.io/tags/VUE%E6%8C%89%E9%92%AE%E6%9D%83%E9%99%90/"/>
+    
+  </entry>
   
   <entry>
     <title>baidusitemap SEO优化</title>
@@ -464,30 +489,9 @@
     
       <category term="Vue" scheme="https://yuwangi.github.io/tags/Vue/"/>
     
-      <category term="router" scheme="https://yuwangi.github.io/tags/router/"/>
-    
       <category term="权限控制" scheme="https://yuwangi.github.io/tags/%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/"/>
     
-  </entry>
-  
-  <entry>
-    <title>梯子免费上网攻略</title>
-    <link href="https://yuwangi.github.io/articles/2729354182.html"/>
-    <id>https://yuwangi.github.io/articles/2729354182.html</id>
-    <published>2019-10-10T03:03:28.000Z</published>
-    <updated>2019-12-06T08:06:37.623Z</updated>
-    
-    <content type="html"><![CDATA[<p>本篇文章分享一些科学上网 Shadowsocks、ShadowsocksR、V2Ray、Brook、Goflyway 等代理方式。为了方便访问 Google 查阅资料而设，请勿用于任何非法活动（请遵守中国法律）。部分账号信息由网友贡献分享，在此感谢！</p><a id="more"></a><h2 id="电脑"><a href="#电脑" class="headerlink" title="电脑"></a>电脑</h2><ul><li>第一种、chrome 浏览器插件 setup VPN<br>资源链接: <a href="https://pan.baidu.com/s/1gtA3D7DVT180hXP7ViIAUA" target="_blank" rel="noopener">https://pan.baidu.com/s/1gtA3D7DVT180hXP7ViIAUA</a> 提取码: x1y2（如不能使用，请邮件联系）</li></ul><p>操作步骤：<br>1、打开 chrome 浏览器<br>2、工具栏 …<br>3、更多工具<br>4、扩展程序<br>5、把下载下来的资源拖放到窗口<br>6、启用扩展程序<br>7、注册邮箱账号<br>8、点击选用不同国家地区使用</p><ul><li>第二种、windows 软件</li></ul><p>链接: <a href="https://pan.baidu.com/s/1ppp9SPhhQ1O1LU4GfVAeKg" target="_blank" rel="noopener">https://pan.baidu.com/s/1ppp9SPhhQ1O1LU4GfVAeKg</a> 提取码: zxk8</p><p>安装完需要配置 ssr(由于 ssr 不定期更新),有需求的请在关于页面加我联系方式(免费的哦~)</p><h2 id="苹果手机"><a href="#苹果手机" class="headerlink" title="苹果手机"></a>苹果手机</h2><p>苹果手机由于<code>app store</code>限制,无法下载代理软件。特此分享一个免费的美区 ID。账号：<code>gd5@jufxf.com</code>，密码：<code>Macziyuan.com2018</code>,禁止将此账号分享给其他人。<br>Tips:账号如不能使用建议自己注册一个 攻略：<a href="https://www.hurbai.com/iOS/60" target="_blank" rel="noopener">https://www.hurbai.com/iOS/60</a></p><p>1、手机打开设置<br>2、Apple ID、iCloud、iTunes 等<br>3、iTunes Store 与 App Store<br>4、选中 Apple ID 退出登陆<br>5、登陆提供的账号<br>6、在 app store 中搜索 Shadowrocket 并下载</p><p>此处介绍几个免费 SSR 账号网址<br><a href="https://chenxinbo.com/free" target="_blank" rel="noopener">https://chenxinbo.com/free</a><br><a href="https://free-ss.site/" target="_blank" rel="noopener">https://free-ss.site/</a><br><a href="https://lncn.org/" target="_blank" rel="noopener">https://lncn.org/</a></p><p>使用方法很简单，里面提供了一些 ss 链接或者二维码，打开下载的软件直接使用即可。</p><h2 id="安卓手机"><a href="#安卓手机" class="headerlink" title="安卓手机"></a>安卓手机</h2><p>直接下载 Shadowrocket 软件，然后通过前边分享的 SSR 账号直接使用即可。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本篇文章分享一些科学上网 Shadowsocks、ShadowsocksR、V2Ray、Brook、Goflyway 等代理方式。为了方便访问 Google 查阅资料而设，请勿用于任何非法活动（请遵守中国法律）。部分账号信息由网友贡献分享，在此感谢！&lt;/p&gt;
-    
-    </summary>
-    
-    
-    
-      <category term="Shadowsocks" scheme="https://yuwangi.github.io/tags/Shadowsocks/"/>
+      <category term="router" scheme="https://yuwangi.github.io/tags/router/"/>
     
   </entry>
   
