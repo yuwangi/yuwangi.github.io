@@ -564,6 +564,129 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yuwangi.github.io/articles/4126109409.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yuwangi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/20190930145233.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/articles/4126109409.html" itemprop="url">keep-alive 的实现原理和缓存策略</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+          
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-15T17:05:44+08:00">
+                2020-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><code>keep-alive</code>的源码解析</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//src/core/components/keep-alive.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; isRegExp, remove &#125; <span class="keyword">from</span> <span class="string">"shared/util"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; getFirstComponentChild &#125; <span class="keyword">from</span> <span class="string">"core/vdom/helpers/index"</span>;</span><br><span class="line"></span><br><span class="line">type VNodeCache = &#123; [key: string]: ?VNode &#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getComponentName</span>(<span class="params">opts: ?VNodeComponentOptions</span>): ?<span class="title">string</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> opts &amp;&amp; (opts.Ctor.options.name || opts.tag);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">matches</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  pattern: string | RegExp | Array&lt;string&gt;,</span></span></span><br><span class="line"><span class="function"><span class="params">  name: string</span></span></span><br><span class="line"><span class="function"><span class="params"></span>): <span class="title">boolean</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(pattern)) &#123;</span><br><span class="line">    <span class="keyword">return</span> pattern.indexOf(name) &gt; <span class="number">-1</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> pattern === <span class="string">"string"</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> pattern.split(<span class="string">","</span>).indexOf(name) &gt; <span class="number">-1</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (isRegExp(pattern)) &#123;</span><br><span class="line">    <span class="keyword">return</span> pattern.test(name);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">/* istanbul ignore next */</span></span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">pruneCache</span>(<span class="params">keepAliveInstance: any, filter: Function</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; cache, keys, _vnode &#125; = keepAliveInstance;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">const</span> key <span class="keyword">in</span> cache) &#123;</span><br><span class="line">    <span class="keyword">const</span> cachedNode: ?VNode = cache[key];</span><br><span class="line">    <span class="keyword">if</span> (cachedNode) &#123;</span><br><span class="line">      <span class="keyword">const</span> name: ?string = getComponentName(cachedNode.componentOptions);</span><br><span class="line">      <span class="keyword">if</span> (name &amp;&amp; !filter(name)) &#123;</span><br><span class="line">        pruneCacheEntry(cache, key, keys, _vnode);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">pruneCacheEntry</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  cache: VNodeCache,</span></span></span><br><span class="line"><span class="function"><span class="params">  key: string,</span></span></span><br><span class="line"><span class="function"><span class="params">  keys: Array&lt;string&gt;,</span></span></span><br><span class="line"><span class="function"><span class="params">  current?: VNode</span></span></span><br><span class="line"><span class="function"><span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> cached = cache[key];</span><br><span class="line">  <span class="keyword">if</span> (cached &amp;&amp; (!current || cached.tag !== current.tag)) &#123;</span><br><span class="line">    cached.componentInstance.$destroy();</span><br><span class="line">  &#125;</span><br><span class="line">  cache[key] = <span class="literal">null</span>;</span><br><span class="line">  remove(keys, key);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> patternTypes: <span class="built_in">Array</span>&lt;<span class="built_in">Function</span>&gt; = [<span class="built_in">String</span>, <span class="built_in">RegExp</span>, <span class="built_in">Array</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">"keep-alive"</span>,</span><br><span class="line">  abstract: <span class="literal">true</span>, <span class="comment">//抽象组件属性,参考此链接介绍 https://router.vuejs.org/zh/api/#routes</span></span><br><span class="line"></span><br><span class="line">  props: &#123;</span><br><span class="line">    include: patternTypes, <span class="comment">// 被缓存组件</span></span><br><span class="line">    exclude: patternTypes, <span class="comment">// 不被缓存组件</span></span><br><span class="line">    max: [<span class="built_in">String</span>, <span class="built_in">Number</span>] <span class="comment">// 指定缓存大小</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  created() &#123;</span><br><span class="line">    <span class="keyword">this</span>.cache = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">    <span class="comment">//Object.create  创建一个对象，并继承传入对象的__proto__</span></span><br><span class="line">    <span class="comment">//https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/create</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.keys = []; <span class="comment">//缓存的key 列表</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  destroyed() &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> key <span class="keyword">in</span> <span class="keyword">this</span>.cache) &#123;</span><br><span class="line">      <span class="comment">//清除缓存</span></span><br><span class="line">      pruneCacheEntry(<span class="keyword">this</span>.cache, key, <span class="keyword">this</span>.keys);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  mounted() &#123;</span><br><span class="line">    <span class="comment">//监听缓存的变动</span></span><br><span class="line">    <span class="keyword">this</span>.$watch(<span class="string">"include"</span>, val =&gt; &#123;</span><br><span class="line">      pruneCache(<span class="keyword">this</span>, name =&gt; matches(val, name));</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">//监听不缓存的变动</span></span><br><span class="line">    <span class="keyword">this</span>.$watch(<span class="string">"exclude"</span>, val =&gt; &#123;</span><br><span class="line">      pruneCache(<span class="keyword">this</span>, name =&gt; !matches(val, name));</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">const</span> slot = <span class="keyword">this</span>.$slots.default;</span><br><span class="line">    <span class="keyword">const</span> vnode: VNode = getFirstComponentChild(slot); <span class="comment">// 获取第一个子元素的 vnode</span></span><br><span class="line">    <span class="keyword">const</span> componentOptions: ?VNodeComponentOptions =</span><br><span class="line">      vnode &amp;&amp; vnode.componentOptions;</span><br><span class="line">    <span class="keyword">if</span> (componentOptions) &#123;</span><br><span class="line">      <span class="comment">// check pattern</span></span><br><span class="line">      <span class="keyword">const</span> name: ?string = getComponentName(componentOptions);</span><br><span class="line">      <span class="keyword">const</span> &#123; include, exclude &#125; = <span class="keyword">this</span>;</span><br><span class="line"></span><br><span class="line">      <span class="comment">//组件不在inlcude中或者在exlude中 直接返回vnode</span></span><br><span class="line">      <span class="keyword">if</span> (</span><br><span class="line">        <span class="comment">// not included</span></span><br><span class="line">        (include &amp;&amp; (!name || !matches(include, name))) ||</span><br><span class="line">        <span class="comment">// excluded</span></span><br><span class="line">        (exclude &amp;&amp; name &amp;&amp; matches(exclude, name))</span><br><span class="line">      ) &#123;</span><br><span class="line">        <span class="keyword">return</span> vnode;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">const</span> &#123; cache, keys &#125; = <span class="keyword">this</span>;</span><br><span class="line">      <span class="keyword">const</span> key: ?string =</span><br><span class="line">        vnode.key == <span class="literal">null</span></span><br><span class="line">          ? <span class="comment">// same constructor may get registered as different local components</span></span><br><span class="line">            <span class="comment">// so cid alone is not enough (#3269)</span></span><br><span class="line">            componentOptions.Ctor.cid +</span><br><span class="line">            (componentOptions.tag ? <span class="string">`::<span class="subst">$&#123;componentOptions.tag&#125;</span>`</span> : <span class="string">""</span>)</span><br><span class="line">          : vnode.key;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (cache[key]) &#123;</span><br><span class="line">        <span class="comment">//如果缓存存在，拿到缓存的组件，然后把它放在最后一位</span></span><br><span class="line">        vnode.componentInstance = cache[key].componentInstance;</span><br><span class="line">        <span class="comment">// make current key freshest</span></span><br><span class="line">        remove(keys, key);</span><br><span class="line">        keys.push(key);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//如果缓存不存在，把它放到缓存中</span></span><br><span class="line">        cache[key] = vnode;</span><br><span class="line">        keys.push(key);</span><br><span class="line">        <span class="comment">// prune oldest entry</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.max &amp;&amp; keys.length &gt; <span class="built_in">parseInt</span>(<span class="keyword">this</span>.max)) &#123;</span><br><span class="line">          pruneCacheEntry(cache, keys[<span class="number">0</span>], keys, <span class="keyword">this</span>._vnode);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      vnode.data.keepAlive = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> vnode || (slot &amp;&amp; slot[<span class="number">0</span>]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yuwangi.github.io/articles/1262276894.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1454,132 +1577,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yuwangi.github.io/articles/2654233593.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yuwangi">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/20190930145233.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/articles/2654233593.html" itemprop="url">vue-cli3 资源CDN优化加载</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-          
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-19T19:46:53+08:00">
-                2019-11-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>背景就是项目打包<code>chunk-vendors</code>依赖文件太大，导致初次加载很慢… 所以就用到了 CDN 优化加载。</p>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>对于 vue，vuex，vue-router，axios，iview 等我们可以利用 webpack 的 externals 参数来配置，这里我们设定只需要在生产环境中才需要使用。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/articles/2654233593.html#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1632,7 +1629,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1739,7 +1736,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共32.1k字</span>
+  <span class="post-count">博客全站共32.7k字</span>
 </div>
         
 <div class="busuanzi-count">
