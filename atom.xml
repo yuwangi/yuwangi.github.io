@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://yuwangi.github.io/"/>
-  <updated>2020-01-16T10:22:38.845Z</updated>
+  <updated>2020-01-17T10:39:38.131Z</updated>
   <id>https://yuwangi.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Gzip性能优化方案</title>
+    <link href="https://yuwangi.github.io/articles/3844556024.html"/>
+    <id>https://yuwangi.github.io/articles/3844556024.html</id>
+    <published>2020-01-17T09:24:16.000Z</published>
+    <updated>2020-01-17T10:39:38.131Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>一个前端开发人员肯定知道线上环境要把 js、css、图片等压缩，提升页面加载速度，优化性能。</p><h2 id="压缩方式"><a href="#压缩方式" class="headerlink" title="压缩方式"></a>压缩方式</h2><p>前端自己打包压缩的有 grunt，gulp，webpack,fis 等等，此处只介绍 webpack Gzip 压缩</p><a id="more"></a><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D compression-webpack-plugin</span><br></pre></td></tr></table></figure><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//vue.config.js</span></span><br><span class="line"><span class="keyword">const</span> CompressionPlugin = <span class="built_in">require</span>(<span class="string">"compression-webpack-plugin"</span>);</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  baseUrl: BASE_URL,</span><br><span class="line">  chainWebpack: <span class="function"><span class="params">config</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (process.env.NODE_ENV === <span class="string">"production"</span>) &#123;</span><br><span class="line">      config.plugin(<span class="string">"compressionPlugin"</span>).use(</span><br><span class="line">        <span class="keyword">new</span> CompressionPlugin(&#123;</span><br><span class="line">          test: <span class="regexp">/\.js$|\.html$|.\css/</span>, <span class="comment">// 匹配文件名</span></span><br><span class="line">          threshold: <span class="number">10240</span>, <span class="comment">// 对超过10k的数据压缩</span></span><br><span class="line">          deleteOriginalAssets: <span class="literal">false</span> <span class="comment">// 不删除源文件</span></span><br><span class="line">        &#125;)</span><br><span class="line">      );</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><img src="/images/fwoafhafwnefp.png" alt="fwoafhafwnefp"></p><p>可见 Gzip 压缩可以节省很多时间</p><h2 id="Nginx-配置"><a href="#Nginx-配置" class="headerlink" title="Nginx 配置"></a>Nginx 配置</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    gzip  on;</span><br><span class="line">    gzip_min_length  <span class="number">1</span>k;</span><br><span class="line">    gzip_buffers     <span class="number">4</span> <span class="number">16</span>k;</span><br><span class="line">    gzip_http_version <span class="number">1.1</span>;</span><br><span class="line">    gzip_comp_level <span class="number">9</span>;</span><br><span class="line">    gzip_types       text/plain application/x-javascript text/css application/xml text/javascript application/x-httpd-php application/javascript application/json;</span><br><span class="line">    gzip_disable <span class="string">"MSIE [1-6]\."</span>;</span><br><span class="line">    gzip_vary on;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="效果预览"><a href="#效果预览" class="headerlink" title="效果预览"></a>效果预览</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//本地代码打包</span></span><br><span class="line">yarn build</span><br></pre></td></tr></table></figure><p>配置本地的 Nginx</p><p>效果如下：</p><p><img src="/images/jtyfjtfyjty.png" alt="jtyfjtfyjty"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;一个前端开发人员肯定知道线上环境要把 js、css、图片等压缩，提升页面加载速度，优化性能。&lt;/p&gt;
+&lt;h2 id=&quot;压缩方式&quot;&gt;&lt;a href=&quot;#压缩方式&quot; class=&quot;headerlink&quot; title=&quot;压缩方式&quot;&gt;&lt;/a&gt;压缩方式&lt;/h2&gt;&lt;p&gt;前端自己打包压缩的有 grunt，gulp，webpack,fis 等等，此处只介绍 webpack Gzip 压缩&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="性能优化" scheme="https://yuwangi.github.io/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
+    
+      <category term="Gzip优化" scheme="https://yuwangi.github.io/tags/Gzip%E4%BC%98%E5%8C%96/"/>
+    
+  </entry>
   
   <entry>
     <title>keep-alive 的实现原理和缓存策略</title>
@@ -474,27 +498,6 @@
       <category term="函数" scheme="https://yuwangi.github.io/tags/%E5%87%BD%E6%95%B0/"/>
     
       <category term="高阶程序" scheme="https://yuwangi.github.io/tags/%E9%AB%98%E9%98%B6%E7%A8%8B%E5%BA%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Vue中.sync 修饰符：进行父子组件间相互传递数据</title>
-    <link href="https://yuwangi.github.io/articles/3679178790.html"/>
-    <id>https://yuwangi.github.io/articles/3679178790.html</id>
-    <published>2019-10-11T07:09:17.000Z</published>
-    <updated>2019-12-06T08:06:37.625Z</updated>
-    
-    <content type="html"><![CDATA[<p>.sync 修饰符的作用？<br>允许 prop 进行双向绑定，以 this.$emit(update:PropName,newValue)的模式触发事件。</p><a id="more"></a><p>就是：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;text-<span class="built_in">document</span> v-bind:title.sync=<span class="string">"doc.title"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">text-document</span>&gt;</span></span></span><br></pre></td></tr></table></figure><p>相当于：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;text-<span class="built_in">document</span></span><br><span class="line">  v-bind:title=<span class="string">"doc.title"</span></span><br><span class="line">  v-on:update:title=<span class="string">"doc.title = $event"</span></span><br><span class="line">&gt;<span class="xml"><span class="tag">&lt;/<span class="name">text-document</span>&gt;</span></span></span><br></pre></td></tr></table></figure><p>以在<code>index.vue</code>下引入<code>childrenOne</code>子组件为例，使用<code>.sync</code>属性，会在<code>mounted</code>生命周期里面 alert 弹出<code>childrenOne</code>，而不是<code>index</code>。</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"vuexWrap common"</span>&gt;</span><br><span class="line">        &lt;childrenOne :title.sync=<span class="string">"doc.title"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">childrenOne</span>&gt;</span></span></span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br><span class="line">&lt;script type=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line">    <span class="keyword">import</span> childrenOne <span class="keyword">from</span> <span class="string">'../../components/childrenOne.vue'</span></span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">default</span>&#123;</span><br><span class="line">        data () &#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                doc:&#123;</span><br><span class="line">                    title:<span class="string">'index'</span></span><br><span class="line">                &#125;,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        mounted ()&#123;</span><br><span class="line">             <span class="comment">//childrenOne</span></span><br><span class="line">            alert(<span class="keyword">this</span>.doc.title);</span><br><span class="line">        &#125;,</span><br><span class="line">        components : &#123;</span><br><span class="line">            childrenOne</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure><p>在<code>childrenOne.vue</code>的生命周期 mounted 里面通过<br><code>this.$emit(&#39;update:title&#39;, this.newTitle);</code><br>设置<code>title</code>属值</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"OneWrap common"</span>&gt;</span><br><span class="line">        &#123;&#123;title&#125;&#125;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br><span class="line">&lt;script type=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">default</span>&#123;</span><br><span class="line">        props:&#123;</span><br><span class="line">            title:<span class="string">""</span></span><br><span class="line">        &#125;,</span><br><span class="line">        data () &#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                newTitle:<span class="string">"childrenOne"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        mounted ()&#123;</span><br><span class="line">            <span class="keyword">this</span>.$emit(<span class="string">'update:title'</span>, <span class="keyword">this</span>.newTitle);</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;.sync 修饰符的作用？&lt;br&gt;允许 prop 进行双向绑定，以 this.$emit(update:PropName,newValue)的模式触发事件。&lt;/p&gt;
-    
-    </summary>
-    
-    
-    
-      <category term="Vue" scheme="https://yuwangi.github.io/tags/Vue/"/>
     
   </entry>
   
