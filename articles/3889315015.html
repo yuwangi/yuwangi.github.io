@@ -81,20 +81,20 @@
 
 
 
-<meta name="description" content="本文抄录自https://juejin.im/post/5ecc87386fb9a047d245c7e1 引言整理了自己开发中常用的一些 js 技巧，灵活的运用，会增强你解决问题的能力，也会对你的代码简洁性有很大的改观。 数组去重1234567function unique(arr) &amp;#123;  if (!Array.isArray(arr)) &amp;#123;    console.log(&quot;t">
+<meta name="description" content="本文抄录自https://juejin.im/post/5ecc87386fb9a047d245c7e1 引言整理了自己开发中常用的一些 js 技巧，灵活的运用，会增强你解决问题的能力，也会对你的代码简洁性有很大的改观。">
 <meta name="keywords" content="Blog">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript使用技巧">
 <meta property="og:url" content="https://yuwangi.github.io/articles/3889315015.html">
 <meta property="og:site_name" content="Blog">
-<meta property="og:description" content="本文抄录自https://juejin.im/post/5ecc87386fb9a047d245c7e1 引言整理了自己开发中常用的一些 js 技巧，灵活的运用，会增强你解决问题的能力，也会对你的代码简洁性有很大的改观。 数组去重1234567function unique(arr) &amp;#123;  if (!Array.isArray(arr)) &amp;#123;    console.log(&quot;t">
+<meta property="og:description" content="本文抄录自https://juejin.im/post/5ecc87386fb9a047d245c7e1 引言整理了自己开发中常用的一些 js 技巧，灵活的运用，会增强你解决问题的能力，也会对你的代码简洁性有很大的改观。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://yuwangi.github.io/images/ruweriuo.png">
 <meta property="og:image" content="https://yuwangi.github.io/images/fefwefv.png">
-<meta property="og:updated_time" content="2020-05-29T09:33:00.659Z">
+<meta property="og:updated_time" content="2020-05-29T09:38:33.839Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript使用技巧">
-<meta name="twitter:description" content="本文抄录自https://juejin.im/post/5ecc87386fb9a047d245c7e1 引言整理了自己开发中常用的一些 js 技巧，灵活的运用，会增强你解决问题的能力，也会对你的代码简洁性有很大的改观。 数组去重1234567function unique(arr) &amp;#123;  if (!Array.isArray(arr)) &amp;#123;    console.log(&quot;t">
+<meta name="twitter:description" content="本文抄录自https://juejin.im/post/5ecc87386fb9a047d245c7e1 引言整理了自己开发中常用的一些 js 技巧，灵活的运用，会增强你解决问题的能力，也会对你的代码简洁性有很大的改观。">
 <meta name="twitter:image" content="https://yuwangi.github.io/images/ruweriuo.png">
 
 
@@ -384,6 +384,8 @@
       
         <p>本文抄录自<a href="https://juejin.im/post/5ecc87386fb9a047d245c7e1" target="_blank" rel="noopener">https://juejin.im/post/5ecc87386fb9a047d245c7e1</a></p>
 <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>整理了自己开发中常用的一些 js 技巧，灵活的运用，会增强你解决问题的能力，也会对你的代码简洁性有很大的改观。</p>
+<a id="more"></a>
+
 <h2 id="数组去重"><a href="#数组去重" class="headerlink" title="数组去重"></a>数组去重</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">unique</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!<span class="built_in">Array</span>.isArray(arr)) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"type error!"</span>);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Array</span>.from(<span class="keyword">new</span> <span class="built_in">Set</span>(arr));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="数组转化为对象"><a href="#数组转化为对象" class="headerlink" title="数组转化为对象"></a>数组转化为对象</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line"><span class="keyword">const</span> obj = &#123;...arr&#125;</span><br><span class="line"><span class="built_in">console</span>.log(obj)</span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line">&#123;<span class="number">0</span>: <span class="number">1</span>, <span class="number">1</span>: <span class="number">2</span>, <span class="number">2</span>: <span class="number">3</span>&#125;</span><br></pre></td></tr></table></figure>
