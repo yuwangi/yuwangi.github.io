@@ -92,7 +92,13 @@
 <meta property="og:image" content="https://yuwangi.github.io/images/sdfhkeofhowe.png">
 <meta property="og:image" content="https://yuwangi.github.io/images/fhwoefhi.png">
 <meta property="og:image" content="https://yuwangi.github.io/images/fdogjeorjgp.png">
-<meta property="og:updated_time" content="2020-05-29T09:38:36.924Z">
+<meta property="og:image" content="https://yuwangi.github.io/images/fheohhfow.png">
+<meta property="og:image" content="https://yuwangi.github.io/images/fhoeiwfno.png">
+<meta property="og:image" content="https://yuwangi.github.io/images/rhewriho.png">
+<meta property="og:image" content="https://yuwangi.github.io/images/fhvfeoh.png">
+<meta property="og:image" content="https://yuwangi.github.io/images/4235235.png">
+<meta property="og:image" content="https://yuwangi.github.io/images/34724.png">
+<meta property="og:updated_time" content="2020-06-04T04:02:19.816Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue内存泄漏优化">
 <meta name="twitter:description" content="背景记一次项目内存泄漏优化。 通常我们在开发 Vue 的时候,大部分是在开发单页应用。但是，在单页应用的设计中，使用它是不需要刷新浏览器的，所以 JavaScript 应用需要自行清理组件来确保垃圾回收以预期的方式生效。通常我们在把其他库集成到应用时才会产生内存泄漏。 垃圾回收机制要想解决内存泄漏问题，必须先了解浏览器的垃圾回收机制。 下面是摘抄的《高级程序设计》3 的片段">
@@ -422,6 +428,21 @@
 <h3 id="Chrome-工具"><a href="#Chrome-工具" class="headerlink" title="Chrome 工具"></a>Chrome 工具</h3><p>Chrome 提供了一套很棒的检测 JavaScript 内存占用的工具。与内存相关的两个重要的工具：<code>memory</code> 和 <code>performance</code>。</p>
 <p><img src="/images/fhwoefhi.png" alt="fhwoefhi"></p>
 <p><img src="/images/fdogjeorjgp.png" alt="fdogjeorjgp"></p>
+<p><img src="/images/fheohhfow.png" alt="fheohhfow"></p>
+<h3 id="chrome-工具分析"><a href="#chrome-工具分析" class="headerlink" title="chrome 工具分析"></a>chrome 工具分析</h3><p>先看性能分析</p>
+<p><img src="/images/fhoeiwfno.png" alt="fhoeiwfno"></p>
+<p>1、先固定时间线到 cpu 占用最高的地方<br>2、找到调用的方法<br>3、事件详情，可以看到我这里 Recalculate Style 重绘占用了 大部分 cpu</p>
+<p>在 <code>memory</code> 标签下查看页面操作带来的内存变化</p>
+<p><img src="/images/rhewriho.png" alt="rhewriho"></p>
+<p>如果操作过程中发现内存有显著增加的情况，参考下面的方法</p>
+<p><img src="/images/fhvfeoh.png" alt="fhvfeoh"></p>
+<p><img src="/images/4235235.png" alt="4235235"></p>
+<p>可以看到 <code>DOM</code> 显著增加、因为 <code>DOM</code> 复杂性比较高、所以 <code>DOM GC</code> 比较慢、当然这也是单页应用的痛点（内存会逐渐增加）</p>
+<p>再看一段浏览器主动 <code>GC</code> 的片段</p>
+<p><img src="/images/34724.png" alt="34724"></p>
+<p><code>Minor GC</code> 就是新生代 <code>GC</code>，指发生在新生代的垃圾收集动作，所有的 <code>Minor GC</code> 都会触发全世界的暂停（stop-the-world），停止应用程序的线程，不过这个过程非常短暂。</p>
+<p><code>总之在我们开发的过程中一定要注意页面的复杂性</code></p>
+<p>Tips:<br>我们平常的 console 也是占用浏览器内存的，建议打包的时候把 console 去掉</p>
 
       
     </div>
@@ -605,7 +626,7 @@
               <ul class="links-of-blogroll-list">
                 
                   <li class="links-of-blogroll-item">
-                    <a href="https://juejin.im/post/5b9cb3336fb9a05d290ee47e" title="ES6 ES7新特性" target="_blank">ES6 ES7新特性</a>
+                    <a href="https://juejin.im/post/5d9bf530518825427b27639d" title="ES6 ES7新特性" target="_blank">ES6 ES7新特性</a>
                   </li>
                 
                   <li class="links-of-blogroll-item">
@@ -632,7 +653,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾回收机制"><span class="nav-number">1.1.</span> <span class="nav-text">垃圾回收机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哪些情况会造成内存泄漏？"><span class="nav-number">1.2.</span> <span class="nav-text">哪些情况会造成内存泄漏？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#意外的全局变量"><span class="nav-number">1.2.1.</span> <span class="nav-text">意外的全局变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#未被清楚的定时器和回调函数"><span class="nav-number">1.2.2.</span> <span class="nav-text">未被清楚的定时器和回调函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#闭包"><span class="nav-number">1.2.3.</span> <span class="nav-text">闭包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#没有清理-DOM-元素引用"><span class="nav-number">1.2.4.</span> <span class="nav-text">没有清理 DOM 元素引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#console-保存大量数据在内存中"><span class="nav-number">1.2.5.</span> <span class="nav-text">console 保存大量数据在内存中</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何避免内存泄漏"><span class="nav-number">1.3.</span> <span class="nav-text">如何避免内存泄漏</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关于内存泄漏"><span class="nav-number">1.3.1.</span> <span class="nav-text">关于内存泄漏</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Chrome-工具"><span class="nav-number">1.4.</span> <span class="nav-text">Chrome 工具</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾回收机制"><span class="nav-number">1.1.</span> <span class="nav-text">垃圾回收机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哪些情况会造成内存泄漏？"><span class="nav-number">1.2.</span> <span class="nav-text">哪些情况会造成内存泄漏？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#意外的全局变量"><span class="nav-number">1.2.1.</span> <span class="nav-text">意外的全局变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#未被清楚的定时器和回调函数"><span class="nav-number">1.2.2.</span> <span class="nav-text">未被清楚的定时器和回调函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#闭包"><span class="nav-number">1.2.3.</span> <span class="nav-text">闭包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#没有清理-DOM-元素引用"><span class="nav-number">1.2.4.</span> <span class="nav-text">没有清理 DOM 元素引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#console-保存大量数据在内存中"><span class="nav-number">1.2.5.</span> <span class="nav-text">console 保存大量数据在内存中</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何避免内存泄漏"><span class="nav-number">1.3.</span> <span class="nav-text">如何避免内存泄漏</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关于内存泄漏"><span class="nav-number">1.3.1.</span> <span class="nav-text">关于内存泄漏</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Chrome-工具"><span class="nav-number">1.4.</span> <span class="nav-text">Chrome 工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chrome-工具分析"><span class="nav-number">1.5.</span> <span class="nav-text">chrome 工具分析</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -668,7 +689,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共34.7k字</span>
+  <span class="post-count">博客全站共35k字</span>
 </div>
         
 <div class="busuanzi-count">
