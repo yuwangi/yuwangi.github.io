@@ -98,7 +98,7 @@
 <meta property="og:image" content="https://yuwangi.github.io/images/fhvfeoh.png">
 <meta property="og:image" content="https://yuwangi.github.io/images/4235235.png">
 <meta property="og:image" content="https://yuwangi.github.io/images/34724.png">
-<meta property="og:updated_time" content="2020-06-04T04:02:19.816Z">
+<meta property="og:updated_time" content="2020-06-04T04:24:25.567Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue内存泄漏优化">
 <meta name="twitter:description" content="背景记一次项目内存泄漏优化。 通常我们在开发 Vue 的时候,大部分是在开发单页应用。但是，在单页应用的设计中，使用它是不需要刷新浏览器的，所以 JavaScript 应用需要自行清理组件来确保垃圾回收以预期的方式生效。通常我们在把其他库集成到应用时才会产生内存泄漏。 垃圾回收机制要想解决内存泄漏问题，必须先了解浏览器的垃圾回收机制。 下面是摘抄的《高级程序设计》3 的片段">
@@ -389,7 +389,7 @@
       
 
       
-        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>记一次项目内存泄漏优化。</p>
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>记一次项目内存泄漏优化。</p>
 <p>通常我们在开发 Vue 的时候,大部分是在开发单页应用。但是，在单页应用的设计中，使用它是不需要刷新浏览器的，所以 JavaScript 应用需要自行清理组件来确保垃圾回收以预期的方式生效。通常我们在把其他库集成到应用时才会产生内存泄漏。</p>
 <h3 id="垃圾回收机制"><a href="#垃圾回收机制" class="headerlink" title="垃圾回收机制"></a>垃圾回收机制</h3><p>要想解决内存泄漏问题，必须先了解浏览器的垃圾回收机制。</p>
 <p>下面是摘抄的《高级程序设计》3 的片段</p>
@@ -653,7 +653,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾回收机制"><span class="nav-number">1.1.</span> <span class="nav-text">垃圾回收机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哪些情况会造成内存泄漏？"><span class="nav-number">1.2.</span> <span class="nav-text">哪些情况会造成内存泄漏？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#意外的全局变量"><span class="nav-number">1.2.1.</span> <span class="nav-text">意外的全局变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#未被清楚的定时器和回调函数"><span class="nav-number">1.2.2.</span> <span class="nav-text">未被清楚的定时器和回调函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#闭包"><span class="nav-number">1.2.3.</span> <span class="nav-text">闭包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#没有清理-DOM-元素引用"><span class="nav-number">1.2.4.</span> <span class="nav-text">没有清理 DOM 元素引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#console-保存大量数据在内存中"><span class="nav-number">1.2.5.</span> <span class="nav-text">console 保存大量数据在内存中</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何避免内存泄漏"><span class="nav-number">1.3.</span> <span class="nav-text">如何避免内存泄漏</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关于内存泄漏"><span class="nav-number">1.3.1.</span> <span class="nav-text">关于内存泄漏</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Chrome-工具"><span class="nav-number">1.4.</span> <span class="nav-text">Chrome 工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chrome-工具分析"><span class="nav-number">1.5.</span> <span class="nav-text">chrome 工具分析</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾回收机制"><span class="nav-number">2.</span> <span class="nav-text">垃圾回收机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哪些情况会造成内存泄漏？"><span class="nav-number">3.</span> <span class="nav-text">哪些情况会造成内存泄漏？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#意外的全局变量"><span class="nav-number">3.1.</span> <span class="nav-text">意外的全局变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#未被清楚的定时器和回调函数"><span class="nav-number">3.2.</span> <span class="nav-text">未被清楚的定时器和回调函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#闭包"><span class="nav-number">3.3.</span> <span class="nav-text">闭包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#没有清理-DOM-元素引用"><span class="nav-number">3.4.</span> <span class="nav-text">没有清理 DOM 元素引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#console-保存大量数据在内存中"><span class="nav-number">3.5.</span> <span class="nav-text">console 保存大量数据在内存中</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何避免内存泄漏"><span class="nav-number">4.</span> <span class="nav-text">如何避免内存泄漏</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关于内存泄漏"><span class="nav-number">4.1.</span> <span class="nav-text">关于内存泄漏</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Chrome-工具"><span class="nav-number">5.</span> <span class="nav-text">Chrome 工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chrome-工具分析"><span class="nav-number">6.</span> <span class="nav-text">chrome 工具分析</span></a></li></ol></div>
             
 
           </div>
