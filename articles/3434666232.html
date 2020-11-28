@@ -81,14 +81,26 @@
 
 
 
+<meta name="description" content="前言本文主要演示整个发布 npm 包流程。 准备1234567891011121314npx vue-sfc-cli# 接下来会有一串的提示，请务必填写# 推荐kebab-case风格，小写字母，多个单词用-（dash）分隔，如my-component# 如你要发布的是团队npm，component name 请输入子组件名称，然后在owner: 填写自己组织的名称，同时也会创建github组织g">
 <meta name="keywords" content="Blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Blog">
-<meta property="og:url" content="https://yuwangi.github.io/tags/js/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自动化发布 npm 包实践">
+<meta property="og:url" content="https://yuwangi.github.io/articles/3434666232.html">
 <meta property="og:site_name" content="Blog">
+<meta property="og:description" content="前言本文主要演示整个发布 npm 包流程。 准备1234567891011121314npx vue-sfc-cli# 接下来会有一串的提示，请务必填写# 推荐kebab-case风格，小写字母，多个单词用-（dash）分隔，如my-component# 如你要发布的是团队npm，component name 请输入子组件名称，然后在owner: 填写自己组织的名称，同时也会创建github组织g">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://yuwangi.github.io/images/20201128175221.png">
+<meta property="og:image" content="https://yuwangi.github.io/images/20201128180649.png">
+<meta property="og:image" content="https://yuwangi.github.io/images/20201128181126.png">
+<meta property="og:image" content="https://badgen.net/npm/dm/@fe-components/cpv-file">
+<meta property="og:image" content="https://yuwangi.github.io/images/20201128182424.png">
+<meta property="og:image" content="https://yuwangi.github.io/images/20201128182742.png">
+<meta property="og:image" content="https://yuwangi.github.io/images/4165465468548978.png">
+<meta property="og:updated_time" content="2020-11-28T10:43:34.689Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Blog">
+<meta name="twitter:title" content="自动化发布 npm 包实践">
+<meta name="twitter:description" content="前言本文主要演示整个发布 npm 包流程。 准备1234567891011121314npx vue-sfc-cli# 接下来会有一串的提示，请务必填写# 推荐kebab-case风格，小写字母，多个单词用-（dash）分隔，如my-component# 如你要发布的是团队npm，component name 请输入子组件名称，然后在owner: 填写自己组织的名称，同时也会创建github组织g">
+<meta name="twitter:image" content="https://yuwangi.github.io/images/20201128175221.png">
 
 
 
@@ -118,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="https://yuwangi.github.io/tags/js/">
+  <link rel="canonical" href="https://yuwangi.github.io/articles/3434666232.html">
 
 
 
 
 
-  <title>Tag: js | Blog</title>
+  <title>自动化发布 npm 包实践 | Blog</title>
   
 
 
@@ -162,7 +174,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
     <a href="https://yuwangi.github.io/" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -288,130 +300,196 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block tag">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>js<small>Tag</small>
-        </h1>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yuwangi.github.io/articles/3434666232.html">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yuwangi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/20190930145233.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/articles/1178710130.html" itemprop="url">
-              
-                <span itemprop="name">ES6 Map、WeakMap详解</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">自动化发布 npm 包实践</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-24T11:41:00+08:00" content="2019-10-24">
-          10-24
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+          
+            <i class="fa fa-thumb-tack" style="color:red;"></i>
+            <span style="color:red;">置顶</span>
+            <span class="post-meta-divider">|</span>
+          
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-11-28T15:39:27+08:00">
+                2020-11-28
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>  阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/articles/3222442466.html" itemprop="url">
-              
-                <span itemprop="name">多种跨域方案详解</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-14T10:25:28+08:00" content="2019-10-14">
-          10-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文主要演示整个发布 npm 包流程。</p>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">npx vue-sfc-cli</span><br><span class="line"></span><br><span class="line"><span class="comment"># 接下来会有一串的提示，请务必填写</span></span><br><span class="line"><span class="comment"># 推荐kebab-case风格，小写字母，多个单词用-（dash）分隔，如my-component</span></span><br><span class="line"><span class="comment"># 如你要发布的是团队npm，component name 请输入子组件名称，然后在owner: 填写自己组织的名称，同时也会创建github组织git地址。注：这里说的组织 为npm 组织包</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 填充完提示后</span></span><br><span class="line"><span class="built_in">cd</span> my-component</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用git初始化，这样可以使用commit hook</span></span><br><span class="line">git init</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装依赖</span></span><br><span class="line">yarn</span><br></pre></td></tr></table></figure>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<a id="more"></a>
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/articles/341754589.html" itemprop="url">
-              
-                <span itemprop="name">js数组遍历方法及效率测试</span>
-              
-            </a>
-        
-      </h2>
+<p>会生成下面的资源文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">├── .all-contributorsrc  <span class="comment"># all-contributors配置</span></span><br><span class="line">├── .babelrc</span><br><span class="line">├── .editorconfig</span><br><span class="line">├── .github</span><br><span class="line">│   └── badge.yml        <span class="comment"># github app auto-badge配置，用于给pr自动打标签</span></span><br><span class="line">├── .gitignore</span><br><span class="line">├── .grenrc.js           <span class="comment"># github-release-notes配置</span></span><br><span class="line">├── .prettierignore      <span class="comment"># prettier配置</span></span><br><span class="line">├── .prettierrc          <span class="comment"># prettier配置</span></span><br><span class="line">├── .travis.yml          <span class="comment"># travis ci配置</span></span><br><span class="line">├── LICENSE              <span class="comment"># MIT</span></span><br><span class="line">├── README.md            <span class="comment"># 自述文件</span></span><br><span class="line">├── build                <span class="comment"># rollup配置</span></span><br><span class="line">│   └── rollup.config.js</span><br><span class="line">├── build.sh             <span class="comment"># ci相关文件</span></span><br><span class="line">├── dist                 <span class="comment"># 打包输出目录</span></span><br><span class="line">├── docs                 <span class="comment"># 使用文档，这些md会转换成demo</span></span><br><span class="line">│   ├── basic.md</span><br><span class="line">├── notify.sh            <span class="comment"># ci相关文件，用于钉钉通知</span></span><br><span class="line">├── package.json</span><br><span class="line">├── src                   <span class="comment"># 源文件目录</span></span><br><span class="line">│   ├── index.js</span><br><span class="line">│   └── upload-to-ali.vue <span class="comment"># 单文件组件</span></span><br><span class="line">├── styleguide.config.js  <span class="comment"># vue-styleguidist配置文件</span></span><br><span class="line">└── yarn.lock</span><br></pre></td></tr></table></figure>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-11T17:56:05+08:00" content="2019-10-11">
-          10-11
-        </time>
-      </div>
+<h2 id="npm-编写"><a href="#npm-编写" class="headerlink" title="npm 编写"></a>npm 编写</h2><p>这一步只需要在 <code>src/</code>文件夹下编写即可。</p>
+<p><img src="/images/20201128175221.png" alt="42342343323425"></p>
+<h2 id="测试用例编写"><a href="#测试用例编写" class="headerlink" title="测试用例编写"></a>测试用例编写</h2><p>在生成的<code>docs/</code>文件夹下 md 文件编写测试用例，这里用到的是<code>Vue Styleguidist</code>。文档 api 地址：<a href="https://vue-styleguidist.github.io/" target="_blank" rel="noopener">vue-styleguidist</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yarn dev</span><br><span class="line">//启动调试</span><br></pre></td></tr></table></figure>
 
-    </header>
-  </article>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#basic.md 例子</span></span><br><span class="line">```vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;Form ref=<span class="string">"formData"</span> :model=<span class="string">"formData"</span> :label-width=<span class="string">"160"</span>&gt;</span><br><span class="line">      &lt;cpv-file</span><br><span class="line">        :childProp=<span class="string">"childProp"</span></span><br><span class="line">        :formData=<span class="string">"formData"</span></span><br><span class="line">        :modalType=<span class="string">"modalType"</span></span><br><span class="line">      /&gt;</span><br><span class="line">    &lt;/Form&gt;</span><br><span class="line">    &lt;Button @click=<span class="string">"submit"</span> <span class="built_in">type</span>=<span class="string">"success"</span>&gt;提交&lt;/Button&gt;</span><br><span class="line">    &#123;&#123; formData &#125;&#125;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="built_in">export</span> default &#123;</span><br><span class="line">  <span class="function"><span class="title">data</span></span>() &#123;</span><br><span class="line">    <span class="built_in">return</span> &#123;</span><br><span class="line">      /*</span><br><span class="line">       * @childProp</span><br><span class="line">       */</span><br><span class="line">      childProp: &#123;</span><br><span class="line">        name: <span class="string">'附件上传'</span>,</span><br><span class="line">        prop: <span class="string">'file'</span>,</span><br><span class="line">        required: <span class="literal">true</span>,</span><br><span class="line">        maxSize: 1024 * 10, //10M</span><br><span class="line">        multiple: <span class="literal">false</span>,</span><br><span class="line">        fileNum: 1,</span><br><span class="line">        token: <span class="string">'126dcc1f-5bb6-45b4-9c2a-1e74b28ecbe6'</span>, //请求携带的 token</span><br><span class="line">        baseUrl: <span class="string">'oscs-api'</span> //转发地址</span><br><span class="line">      &#125;,</span><br><span class="line">      formData: &#123;&#125;,</span><br><span class="line">      modalType: <span class="string">'create'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    <span class="function"><span class="title">submit</span></span>() &#123;</span><br><span class="line">      this.<span class="variable">$refs</span>.formData.validate(valid =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (valid) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 
+<p>如需第三方依赖，可在<code>styleguide.config.js</code>文件中添加配置</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//styleguide.config.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="built_in">require</span>: [<span class="string">"./styleguide/viewDesign.js"</span>],</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-      
-        
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//cpv-file\styleguide\viewDesign.js</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">"vue"</span>;</span><br><span class="line"><span class="keyword">import</span> ViewUI <span class="keyword">from</span> <span class="string">"view-design"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"view-design/dist/styles/iview.css"</span>;</span><br><span class="line"></span><br><span class="line">Vue.use(ViewUI);</span><br></pre></td></tr></table></figure>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<p>效果如下：</p>
+<p><img src="/images/20201128180649.png" alt="3252523523523"></p>
+<h2 id="README-完善-（非必须）"><a href="#README-完善-（非必须）" class="headerlink" title="README 完善 （非必须）"></a>README 完善 （非必须）</h2><p>如需完成下面的效果，还需</p>
+<ul>
+<li>整理 badgen 徽章</li>
+<li>完善 npm 描述</li>
+<li>团队贡献完善等</li>
+</ul>
+<p><img src="/images/20201128181126.png" alt="20201128181126.png"></p>
+<h3 id="badgen-徽章"><a href="#badgen-徽章" class="headerlink" title="badgen 徽章"></a>badgen 徽章</h3><p>这里推荐使用 <a href="https://badgen.net/" target="_blank" rel="noopener">https://badgen.net/</a></p>
+<p>徽章内容来源种类较多,默认按照平台分类,按照特定规则生成徽章,需要手动拼接在线链接</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">https:<span class="comment">//badgen.net/badge/:subject/:status/:color?icon=github</span></span><br><span class="line">                   ──┬──  ───┬───  ──┬───  ──┬── ────┬──────</span><br><span class="line">                     │       │       │       │       └─ Extra Options (label, list, icon, color)</span><br><span class="line">                     │       │       │       │</span><br><span class="line">                     │      TEXT    TEXT    RGB / COLOR_NAME ( optional )</span><br><span class="line">                     │</span><br><span class="line">                  <span class="string">"badge"</span> - <span class="keyword">default</span> (<span class="keyword">static</span>) badge generator</span><br></pre></td></tr></table></figure>
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/articles/3094046573.html" itemprop="url">
-              
-                <span itemprop="name">惰性载入函数</span>
-              
-            </a>
-        
-      </h2>
+<p>选择 <code>npm</code> 徽章，将 <code>micromatch</code> 替换成目标信息</p>
+<p><code>/npm/micromatch/micromatch</code> 替换成 <code>npm/dm/@fe-components/cpv-file</code></p>
+<p>预览徽章效果并手动修改成目标格式</p>
+<p><a href="https://www.npmjs.com/package/@fe-components/cpv-file" target="_blank" rel="noopener"><img src="https://badgen.net/npm/dm/@fe-components/cpv-file" alt="NPM Download"></a></p>
+<p><img src="/images/20201128182424.png" alt="20201128182424.png"></p>
+<p>travis 徽章，需要到<code>https://travis-ci.org</code>自动化构建。</p>
+<p><img src="/images/20201128182742.png" alt="20201128182742.png"></p>
+<h2 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 打包</span></span><br><span class="line">yarn build</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可以发布了！</span></span><br><span class="line"><span class="comment"># 或者npm publish</span></span><br><span class="line">yarn publish</span><br></pre></td></tr></table></figure>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-11T17:41:27+08:00" content="2019-10-11">
-          10-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+<p>最终效果 <a href="https://www.npmjs.com/package/@fe-components/cpv-file" target="_blank" rel="noopener">@fe-components/cpv-file</a></p>
+<p><img src="/images/4165465468548978.png" alt="4165465468548978.png"></p>
 
       
     </div>
+    <div>
+      
+        
+      
+    </div>
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/articles/470238799.html" rel="next" title="用 patch-package 给 npm 打补丁">
+                <i class="fa fa-chevron-left"></i> 用 patch-package 给 npm 打补丁
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -419,6 +497,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NzE5Mi8yMzY5Mg=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -439,8 +526,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
       
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -535,6 +631,23 @@
         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="110" src="//music.163.com/outchain/player?type=0&id=379555275&auto=0&height=90"></iframe>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备"><span class="nav-number">2.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#npm-编写"><span class="nav-number">3.</span> <span class="nav-text">npm 编写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试用例编写"><span class="nav-number">4.</span> <span class="nav-text">测试用例编写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#README-完善-（非必须）"><span class="nav-number">5.</span> <span class="nav-text">README 完善 （非必须）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#badgen-徽章"><span class="nav-number">5.1.</span> <span class="nav-text">badgen 徽章</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发布"><span class="nav-number">6.</span> <span class="nav-text">发布</span></a></li></ol></div>
+            
+
+          </div>
+          
+        </section>
+      <!--/noindex-->
       
 
       
@@ -699,6 +812,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -727,6 +844,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
