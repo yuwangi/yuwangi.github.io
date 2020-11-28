@@ -564,6 +564,141 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yuwangi.github.io/articles/470238799.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yuwangi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/20190930145233.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/articles/470238799.html" itemprop="url">用 patch-package 给 npm 打补丁</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+          
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-08-28T15:12:28+08:00">
+                2020-08-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>上周看到别人分享的文章，<code>patch-package</code>可以给项目下的 npm 包打补丁。这样我们就可以无需给 npm 提 issues 了，甚至有些包已经不再维护了(无需 fork 修改)。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm i patch-package --save-dev</span><br><span class="line">//或</span><br><span class="line">yarn add --dev patch-package postinstall-postinstall</span><br></pre></td></tr></table></figure>
+
+<h2 id="修改-npm-源文件"><a href="#修改-npm-源文件" class="headerlink" title="修改 npm 源文件"></a>修改 npm 源文件</h2><p>找到 node_modules/文件夹下的包</p>
+<p><img src="/images/20201128171248.png" alt="testeeeee"></p>
+<p>然后修改你需要调整的内容。</p>
+<h2 id="打补丁"><a href="#打补丁" class="headerlink" title="打补丁"></a>打补丁</h2><p>在修改依赖包内容后，就可以运行 patch-package 创建 patch 文件了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npx patch-package package-name   <span class="comment"># 使用npm</span></span><br><span class="line"></span><br><span class="line">yarn patch-package package-name  <span class="comment"># 使用yarn</span></span><br></pre></td></tr></table></figure>
+
+<p>运行后通常会在项目根目录下的 patches 目录中创建一个名为 package-name+version.patch 的文件。将该 patch 文件提交至版本控制中，即可在之后应用该补丁了</p>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>最后还需要修改 package.json 的内容，在 scripts 中加入”postinstall”: “patch-package”。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"scripts"</span>: &#123;</span><br><span class="line">  <span class="string">"postinstall"</span>: <span class="string">"patch-package"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>后续运行 npm install 或是 yarn install 命令时，便会自动为依赖包打上我们编写的补丁了</p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>我的项目改的 <code>@femessage/update-popup</code> ,这个包是做版本发布提示用的，但是我们不想每次手动更改版本，只根据 git tag 同步就可以了。正好碰到这个 npm 组件。打了补丁后，只需要 Jenkins 获取 git tag 信息就可以直接更新版本</p>
+
+          
+        
+      
+    </div>
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yuwangi.github.io/articles/3889315015.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1433,132 +1568,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yuwangi.github.io/articles/1223383549.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yuwangi">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/20190930145233.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/articles/1223383549.html" itemprop="url">前端开发环境配置</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-          
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-11T18:05:11+08:00">
-                2019-12-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>开发过程中，我们经常遇到测试环境需要一种配置，线上环境另外一种配置，每次上线前都要修改一下配置，这样的管理会给我们的开发工作带来一些不必要的麻烦，所以就需要对前端开发环境进行一个配置。</p>
-<p>那么如何才能做环境的配置呢？这里我们就用到<code>Node环境变量</code>。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/articles/1223383549.html#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1624,7 +1633,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -1718,7 +1727,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共35k字</span>
+  <span class="post-count">博客全站共34.8k字</span>
 </div>
         
 <div class="busuanzi-count">
