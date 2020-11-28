@@ -81,19 +81,19 @@
 
 
 
-<meta name="description" content="前言上周看到别人分享的文章，patch-package可以给项目下的 npm 包打补丁。这样我们就可以无需给 npm 提 issues 了，甚至有些包已经不再维护了(无需 fork 修改)。 安装123npm i patch-package --save-dev//或yarn add --dev patch-package postinstall-postinstall  修改 npm 源文件找到">
+<meta name="description" content="前言上周看到别人分享的文章，patch-package可以给项目下的 npm 包打补丁。这样我们就可以无需给 npm 提 issues 了，甚至有些包已经不再维护了(无需 fork 修改)。">
 <meta name="keywords" content="Blog">
 <meta property="og:type" content="article">
 <meta property="og:title" content="用 patch-package 给 npm 打补丁">
 <meta property="og:url" content="https://yuwangi.github.io/articles/470238799.html">
 <meta property="og:site_name" content="Blog">
-<meta property="og:description" content="前言上周看到别人分享的文章，patch-package可以给项目下的 npm 包打补丁。这样我们就可以无需给 npm 提 issues 了，甚至有些包已经不再维护了(无需 fork 修改)。 安装123npm i patch-package --save-dev//或yarn add --dev patch-package postinstall-postinstall  修改 npm 源文件找到">
+<meta property="og:description" content="前言上周看到别人分享的文章，patch-package可以给项目下的 npm 包打补丁。这样我们就可以无需给 npm 提 issues 了，甚至有些包已经不再维护了(无需 fork 修改)。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://yuwangi.github.io/images/20201128171248.png">
-<meta property="og:updated_time" content="2020-11-28T09:26:07.588Z">
+<meta property="og:updated_time" content="2020-11-28T09:35:22.213Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用 patch-package 给 npm 打补丁">
-<meta name="twitter:description" content="前言上周看到别人分享的文章，patch-package可以给项目下的 npm 包打补丁。这样我们就可以无需给 npm 提 issues 了，甚至有些包已经不再维护了(无需 fork 修改)。 安装123npm i patch-package --save-dev//或yarn add --dev patch-package postinstall-postinstall  修改 npm 源文件找到">
+<meta name="twitter:description" content="前言上周看到别人分享的文章，patch-package可以给项目下的 npm 包打补丁。这样我们就可以无需给 npm 提 issues 了，甚至有些包已经不再维护了(无需 fork 修改)。">
 <meta name="twitter:image" content="https://yuwangi.github.io/images/20201128171248.png">
 
 
@@ -382,6 +382,8 @@
 
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>上周看到别人分享的文章，<code>patch-package</code>可以给项目下的 npm 包打补丁。这样我们就可以无需给 npm 提 issues 了，甚至有些包已经不再维护了(无需 fork 修改)。</p>
+<a id="more"></a>
+
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm i patch-package --save-dev</span><br><span class="line">//或</span><br><span class="line">yarn add --dev patch-package postinstall-postinstall</span><br></pre></td></tr></table></figure>
 
 <h2 id="修改-npm-源文件"><a href="#修改-npm-源文件" class="headerlink" title="修改 npm 源文件"></a>修改 npm 源文件</h2><p>找到 node_modules/文件夹下的包</p>
