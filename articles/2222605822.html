@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="yuwangi">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="前言平常大家开发每个页面骨架大致相似，每次开发新页面都要一步一步的配置，相当繁琐。有了Plop，就可以实现自动化了，Plop 旨在根据模板文件自动化创建组件，接下来我就来介绍一下Plop如何帮助我们在开发过程中提高工作效率。">
+<meta name="keywords" content="Blog">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端自动化工具 plop.js">
+<meta property="og:url" content="https://yuwangi.github.io/articles/2222605822.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="前言平常大家开发每个页面骨架大致相似，每次开发新页面都要一步一步的配置，相当繁琐。有了Plop，就可以实现自动化了，Plop 旨在根据模板文件自动化创建组件，接下来我就来介绍一下Plop如何帮助我们在开发过程中提高工作效率。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://yuwangi.github.io/images/20201129170600.png">
+<meta property="og:image" content="https://yuwangi.github.io/images/20201129170727.png">
+<meta property="og:image" content="https://yuwangi.github.io/images/20201129170821.png">
+<meta property="og:image" content="https://yuwangi.github.io/images/20201129170920.png">
+<meta property="og:updated_time" content="2020-11-29T09:54:24.347Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端自动化工具 plop.js">
+<meta name="twitter:description" content="前言平常大家开发每个页面骨架大致相似，每次开发新页面都要一步一步的配置，相当繁琐。有了Plop，就可以实现自动化了，Plop 旨在根据模板文件自动化创建组件，接下来我就来介绍一下Plop如何帮助我们在开发过程中提高工作效率。">
+<meta name="twitter:image" content="https://yuwangi.github.io/images/20201129170600.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yuwangi.github.io/articles/2222605822.html">
+
+
+
+
+
+  <title>前端自动化工具 plop.js | Blog</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-150652898-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa8dbdb77804355117da99a31dc900d5";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://yuwangi.github.io/" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yuwangi.github.io/articles/2222605822.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yuwangi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/20190930145233.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前端自动化工具 plop.js</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+          
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-11-29T16:19:43+08:00">
+                2020-11-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>  阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>平常大家开发每个页面骨架大致相似，每次开发新页面都要一步一步的配置，相当繁琐。有了<code>Plop</code>，就可以实现自动化了，Plop 旨在根据模板文件自动化创建组件，接下来我就来介绍一下<code>Plop</code>如何帮助我们在开发过程中提高工作效率。</p>
+<a id="more"></a>
+
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>可参考 <a href="https://github.com/plopjs/plop" target="_blank" rel="noopener">https://github.com/plopjs/plop</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev plop</span><br><span class="line">//或</span><br><span class="line">yarn add -D plop</span><br><span class="line"></span><br><span class="line"><span class="comment">#当然你也可以把它全局安装</span></span><br><span class="line">npm install -g plop</span><br></pre></td></tr></table></figure>
+
+<p>然后在项目的根目录创建一个<code>plopfile.js</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">module.exports = <span class="keyword">function</span> (plop) &#123;&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="快速上手"><a href="#快速上手" class="headerlink" title="快速上手"></a>快速上手</h2><h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>大致涉及这些文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">├── plop-templates        <span class="comment"># templates模板</span></span><br><span class="line">│   ├── cpv               <span class="comment"># cpv</span></span><br><span class="line">│        ├── index.hbs    <span class="comment"># 模板定义</span></span><br><span class="line">│        └── prompt.js    <span class="comment"># 配置</span></span><br><span class="line">│   ├── view              <span class="comment"># view</span></span><br><span class="line">│   ├── component         <span class="comment"># component</span></span><br><span class="line">│   ├── store             <span class="comment"># store</span></span><br><span class="line">│   └── utils.js          <span class="comment"># utils</span></span><br><span class="line">├── plopfile.js           <span class="comment"># plopfile配置</span></span><br><span class="line">├── package.json</span><br><span class="line">└── yarn.lock</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//plopfile.js</span><br><span class="line">const cpvGenerator = require(<span class="string">'./plop-templates/cpv/prompt'</span>);</span><br><span class="line">const viewGenerator = require(<span class="string">'./plop-templates/view/prompt'</span>);</span><br><span class="line">const componentGenerator = require(<span class="string">'./plop-templates/component/prompt'</span>);</span><br><span class="line">const storeGenerator = require(<span class="string">'./plop-templates/store/prompt.js'</span>);</span><br><span class="line"></span><br><span class="line">module.exports = <span class="keyword">function</span>(plop) &#123;</span><br><span class="line">  plop.setGenerator(<span class="string">'cpv'</span>, cpvGenerator);</span><br><span class="line">  plop.setGenerator(<span class="string">'view'</span>, viewGenerator);</span><br><span class="line">  plop.setGenerator(<span class="string">'component'</span>, componentGenerator);</span><br><span class="line">  plop.setGenerator(<span class="string">'store'</span>, storeGenerator);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>先来一个简单点的配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">//plop-templates/view/index.hbs</span><br><span class="line">&#123;&#123;<span class="comment">#if template&#125;&#125;</span></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class=<span class="string">"&#123;&#123; properCase name &#125;&#125;"</span>&gt;&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&#123;&#123;/<span class="keyword">if</span>&#125;&#125;</span><br><span class="line"></span><br><span class="line">&#123;&#123;<span class="comment">#if script&#125;&#125;</span></span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="built_in">export</span> default &#123;</span><br><span class="line">    name: <span class="string">'&#123;&#123; properCase name &#125;&#125;'</span>,</span><br><span class="line">    props: &#123;&#125;,</span><br><span class="line">    <span class="function"><span class="title">data</span></span>() &#123;</span><br><span class="line">      <span class="built_in">return</span> &#123;&#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="function"><span class="title">created</span></span>() &#123; &#125;,</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123; &#125;,</span><br><span class="line">    methods: &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&#123;&#123;/<span class="keyword">if</span>&#125;&#125;</span><br><span class="line"></span><br><span class="line">&#123;&#123;<span class="comment">#if style&#125;&#125;</span></span><br><span class="line">&lt;style lang=<span class="string">"less"</span> scoped&gt;</span><br><span class="line"></span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&#123;&#123;/<span class="keyword">if</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">//plop-templates/view/prompt.js</span><br><span class="line">const &#123; notEmpty &#125; = require(<span class="string">'../utils.js'</span>);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  description: <span class="string">'generate a view'</span>,</span><br><span class="line">  prompts: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="built_in">type</span>: <span class="string">'input'</span>,</span><br><span class="line">      name: <span class="string">'name'</span>,</span><br><span class="line">      message: <span class="string">'view name please'</span>,</span><br><span class="line">      validate: notEmpty(<span class="string">'name'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="built_in">type</span>: <span class="string">'checkbox'</span>,</span><br><span class="line">      name: <span class="string">'blocks'</span>,</span><br><span class="line">      message: <span class="string">'Blocks:'</span>,</span><br><span class="line">      choices: [</span><br><span class="line">        &#123;</span><br><span class="line">          name: <span class="string">'&lt;template&gt;'</span>,</span><br><span class="line">          value: <span class="string">'template'</span>,</span><br><span class="line">          checked: <span class="literal">true</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          name: <span class="string">'&lt;script&gt;'</span>,</span><br><span class="line">          value: <span class="string">'script'</span>,</span><br><span class="line">          checked: <span class="literal">true</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          name: <span class="string">'style'</span>,</span><br><span class="line">          value: <span class="string">'style'</span>,</span><br><span class="line">          checked: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">      ],</span><br><span class="line">      validate(value) &#123;</span><br><span class="line">        <span class="keyword">if</span> (value.indexOf(<span class="string">'script'</span>) === -1 &amp;&amp; value.indexOf(<span class="string">'template'</span>) === -1) &#123;</span><br><span class="line">          <span class="built_in">return</span> <span class="string">'View require at least a &lt;script&gt; or &lt;template&gt; tag.'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">return</span> <span class="literal">true</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  actions: data =&gt; &#123;</span><br><span class="line">    const name = <span class="string">'&#123;&#123;name&#125;&#125;'</span>;</span><br><span class="line">    const actions = [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="built_in">type</span>: <span class="string">'add'</span>,</span><br><span class="line">        path: `src/view/<span class="variable">$&#123;name&#125;</span>/index.vue`,</span><br><span class="line">        templateFile: <span class="string">'plop-templates/view/index.hbs'</span>,</span><br><span class="line">        data: &#123;</span><br><span class="line">          name: name,</span><br><span class="line">          template: data.blocks.includes(<span class="string">'template'</span>),</span><br><span class="line">          script: data.blocks.includes(<span class="string">'script'</span>),</span><br><span class="line">          style: data.blocks.includes(<span class="string">'style'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">return</span> actions;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//plop-templates/utils.js</span><br><span class="line">exports.notEmpty = name =&gt; v =&gt;</span><br><span class="line">  !v || v.trim() === <span class="string">''</span> ? `<span class="variable">$&#123;name&#125;</span> is required` : <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//package.json</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"scripts"</span>: &#123;</span><br><span class="line">        <span class="string">"new"</span>: <span class="string">"plop"</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn new</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/20201129170600.png" alt="20201129170600.png"></p>
+<p><img src="/images/20201129170727.png" alt="20201129170727.png"></p>
+<p><img src="/images/20201129170821.png" alt="20201129170821.png"></p>
+<p><img src="/images/20201129170920.png" alt="20201129170920.png"></p>
+<p>这样即可创建完成了。</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p><code>plop</code>命令相关主要借助<code>prompt</code>和<code>Inquirer</code></p>
+<p><a href="https://www.npmjs.com/package/prompt" target="_blank" rel="noopener">prompt</a> 主要是命令行输入表单控件，它的相关功能:</p>
+<ul>
+<li>提示用户输入</li>
+<li>支持默认值和字段</li>
+<li>验证</li>
+<li>各种提示</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">//表单</span><br><span class="line">var schema = &#123;</span><br><span class="line">    properties: &#123;</span><br><span class="line">      name: &#123;</span><br><span class="line">        pattern: /^[a-zA-Z\s\-]+$/,</span><br><span class="line">        message: <span class="string">'Name must be only letters, spaces, or dashes'</span>,</span><br><span class="line">        required: <span class="literal">true</span></span><br><span class="line">      &#125;,</span><br><span class="line">      password: &#123;</span><br><span class="line">        hidden: <span class="literal">true</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">//</span><br><span class="line">prompt.start();</span><br><span class="line"></span><br><span class="line">//获取用户名，密码</span><br><span class="line">prompt.get(schema, <span class="keyword">function</span> (err, result) &#123;</span><br><span class="line">    console.log(<span class="string">'Command-line input received:'</span>);</span><br><span class="line">    console.log(<span class="string">'  name: '</span> + result.name);</span><br><span class="line">    console.log(<span class="string">'  password: '</span> + result.password);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//这是可用于验证和提示控件的属性的概述：</span><br><span class="line">  &#123;</span><br><span class="line">    description: <span class="string">'Enter your password'</span>,     // 描述</span><br><span class="line">    <span class="built_in">type</span>: <span class="string">'string'</span>,                 // 类型</span><br><span class="line">    pattern: /^\w+$/,                  // 正则</span><br><span class="line">    message: <span class="string">'Password must be letters'</span>, //警告提示</span><br><span class="line">    hidden: <span class="literal">true</span>,                        // 如果为<span class="literal">true</span>，则不展示</span><br><span class="line">    replace: <span class="string">'*'</span>,                        // 替换</span><br><span class="line">    default: <span class="string">'lamepassword'</span>,             // 默认</span><br><span class="line">    required: <span class="literal">true</span>                        // 是否必填</span><br><span class="line">    before: <span class="keyword">function</span>(value) &#123; <span class="built_in">return</span> <span class="string">'v'</span> + value; &#125; //回调执行前，执行</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>Inquirer</code> 交互式命令行工具 相关功能：</p>
+<ul>
+<li>提供错误回调</li>
+<li>询问操作者问题</li>
+<li>获取并解析用户输入</li>
+<li>检测用户回答是否合法</li>
+<li>管理多层级的提示</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>type</td>
+<td>类型 相关值有：input，number，confirm， list，rawlist，expand，checkbox，password，editor</td>
+</tr>
+<tr>
+<td>name</td>
+<td>存储当前字段的变量</td>
+</tr>
+<tr>
+<td>message</td>
+<td>问题的描述</td>
+</tr>
+<tr>
+<td>default</td>
+<td>默认值</td>
+</tr>
+<tr>
+<td>choices</td>
+<td>列表选项</td>
+</tr>
+<tr>
+<td>validate</td>
+<td>验证</td>
+</tr>
+<tr>
+<td>filter</td>
+<td>过滤</td>
+</tr>
+<tr>
+<td>transformer</td>
+<td>对用户回答的显示效果进行处理</td>
+</tr>
+<tr>
+<td>when</td>
+<td>根据前面问题的回答，判断当前问题是否需要被回答</td>
+</tr>
+<tr>
+<td>pageSize</td>
+<td>渲染行数</td>
+</tr>
+<tr>
+<td>prefix</td>
+<td>修改 message 默认前缀</td>
+</tr>
+<tr>
+<td>suffix</td>
+<td>修改 message 默认后缀</td>
+</tr>
+<tr>
+<td>askAnswered</td>
+<td>如果答案已经存在，则强制提示该问题。</td>
+</tr>
+<tr>
+<td>loop</td>
+<td>启用列表循环。默认值：true</td>
+</tr>
+</tbody></table>
+<p>有了这些配置，我们就可以定义自己的模板了。</p>
+<p>最后贴一下部分配置代码：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">//在指定文件创建模板和它的组件</span><br><span class="line"></span><br><span class="line">const &#123; notEmpty &#125; = require(<span class="string">'../utils.js'</span>);</span><br><span class="line">const fs = require(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">let</span> components = [];</span><br><span class="line">const files = fs.readdirSync(<span class="string">'src/view/'</span>);</span><br><span class="line">files.forEach(item =&gt; &#123;</span><br><span class="line">  <span class="built_in">let</span> <span class="built_in">stat</span> = fs.lstatSync(<span class="string">'src/view/'</span> + item);</span><br><span class="line">  <span class="keyword">if</span> (stat.isDirectory() === <span class="literal">true</span>) &#123;</span><br><span class="line">    components.push(item);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  description: <span class="string">'generate a cpv'</span>,</span><br><span class="line">  prompts: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="built_in">type</span>: <span class="string">'input'</span>,</span><br><span class="line">      name: <span class="string">'name'</span>,</span><br><span class="line">      message: <span class="string">'cpv name please'</span>,</span><br><span class="line">      validate: notEmpty(<span class="string">'name'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="built_in">type</span>: <span class="string">'list'</span>,</span><br><span class="line">      name: <span class="string">'dirName'</span>,</span><br><span class="line">      message: <span class="string">'choose name please'</span>,</span><br><span class="line">      choices: components,</span><br><span class="line">      validate: notEmpty(<span class="string">'dirName'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="built_in">type</span>: <span class="string">'checkbox'</span>,</span><br><span class="line">      name: <span class="string">'blocks'</span>,</span><br><span class="line">      message: <span class="string">'Blocks:'</span>,</span><br><span class="line">      choices: [</span><br><span class="line">        &#123;</span><br><span class="line">          name: <span class="string">'&lt;template&gt;'</span>,</span><br><span class="line">          value: <span class="string">'template'</span>,</span><br><span class="line">          checked: <span class="literal">true</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          name: <span class="string">'&lt;script&gt;'</span>,</span><br><span class="line">          value: <span class="string">'script'</span>,</span><br><span class="line">          checked: <span class="literal">true</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          name: <span class="string">'style'</span>,</span><br><span class="line">          value: <span class="string">'style'</span>,</span><br><span class="line">          checked: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">      ],</span><br><span class="line">      validate(value) &#123;</span><br><span class="line">        <span class="keyword">if</span> (value.indexOf(<span class="string">'script'</span>) === -1 &amp;&amp; value.indexOf(<span class="string">'template'</span>) === -1) &#123;</span><br><span class="line">          <span class="built_in">return</span> <span class="string">'View require at least a &lt;script&gt; or &lt;template&gt; tag.'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">return</span> <span class="literal">true</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  actions: data =&gt; &#123;</span><br><span class="line">    const name = <span class="string">'&#123;&#123;name&#125;&#125;'</span>;</span><br><span class="line">    const dirName = <span class="string">'&#123;&#123;dirName&#125;&#125;'</span>;</span><br><span class="line">    const actions = [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="built_in">type</span>: <span class="string">'add'</span>,</span><br><span class="line">        path: `src/view/<span class="variable">$&#123;dirName&#125;</span>/<span class="variable">$&#123;name&#125;</span>/index.vue`,</span><br><span class="line">        templateFile: <span class="string">'plop-templates/cpv/index.hbs'</span>,</span><br><span class="line">        data: &#123;</span><br><span class="line">          name: name,</span><br><span class="line">          template: data.blocks.includes(<span class="string">'template'</span>),</span><br><span class="line">          script: data.blocks.includes(<span class="string">'script'</span>),</span><br><span class="line">          style: data.blocks.includes(<span class="string">'style'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="built_in">type</span>: <span class="string">'add'</span>,</span><br><span class="line">        path: `src/view/<span class="variable">$&#123;dirName&#125;</span>/component/CPV<span class="variable">$&#123;name&#125;</span>.vue`,</span><br><span class="line">        templateFile: <span class="string">'plop-templates/cpv/component.hbs'</span>,</span><br><span class="line">        data: &#123;</span><br><span class="line">          name: name,</span><br><span class="line">          template: data.blocks.includes(<span class="string">'template'</span>),</span><br><span class="line">          script: data.blocks.includes(<span class="string">'script'</span>),</span><br><span class="line">          style: data.blocks.includes(<span class="string">'style'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">return</span> actions;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://www.npmjs.com/package/prompt" target="_blank" rel="noopener">prompt</a></li>
+<li><a href="https://github.com/SBoudrias/Inquirer.js" target="_blank" rel="noopener">Inquirer</a></li>
+<li><a href="https://www.jianshu.com/p/06f8094738db?utm_campaign=maleskine&utm_content=note&utm_medium=seo_notes&utm_source=recommendation" target="_blank" rel="noopener">前端用命令行交互</a></li>
+</ul>
+
+      
+    </div>
+    <div>
+      
+        
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/articles/3434666232.html" rel="next" title="自动化发布 npm 包实践">
+                <i class="fa fa-chevron-left"></i> 自动化发布 npm 包实践
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NzE5Mi8yMzY5Mg=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+      
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/20190930145233.jpg" alt="yuwangi">
+            
+              <p class="site-author-name" itemprop="name">yuwangi</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yuwangi" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yuwangifeng@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://juejin.im/post/5d9bf530518825427b27639d" title="ES6 ES7新特性" target="_blank">ES6 ES7新特性</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://juejin.im/post/5d70e25de51d453c11684cc4" title="JavaScript 函数式编程" target="_blank">JavaScript 函数式编程</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="110" src="//music.163.com/outchain/player?type=0&id=379555275&auto=0&height=90"></iframe>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速上手"><span class="nav-number">3.</span> <span class="nav-text">快速上手</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">3.1.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行"><span class="nav-number">3.2.</span> <span class="nav-text">运行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">4.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+          
+        </section>
+      <!--/noindex-->
+      
+
+      
+      
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart" aria-hidden="true"></i>
+    
+  </span>
+  <span class="author" itemprop="copyrightHolder">yuwangi</span>
+
+  
+</div>
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共36.8k字</span>
+</div>
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+    <script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https') {
+              bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+          }
+          else {
+              bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+          }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+  <script type="text/javascript" color="0,0,0" opacity="0.5" zindex="-2" count="150" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
