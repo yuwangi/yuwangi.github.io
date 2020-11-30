@@ -91,12 +91,17 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://yuwangi.github.io/images/20201128175221.png">
 <meta property="og:image" content="https://yuwangi.github.io/images/20201128180649.png">
+<meta property="og:image" content="https://yuwangi.github.io/images/20201130094907.png">
+<meta property="og:image" content="https://yuwangi.github.io/images/20201130104857.png">
+<meta property="og:image" content="https://yuwangi.github.io/images/20201130101929.png">
+<meta property="og:image" content="https://yuwangi.github.io/images/20201130105310.png">
+<meta property="og:image" content="https://yuwangi.github.io/images/20201130105419.png">
 <meta property="og:image" content="https://yuwangi.github.io/images/20201128181126.png">
 <meta property="og:image" content="https://badgen.net/npm/dm/@fe-components/cpv-file">
 <meta property="og:image" content="https://yuwangi.github.io/images/20201128182424.png">
 <meta property="og:image" content="https://yuwangi.github.io/images/20201128182742.png">
 <meta property="og:image" content="https://yuwangi.github.io/images/4165465468548978.png">
-<meta property="og:updated_time" content="2020-11-29T10:01:14.949Z">
+<meta property="og:updated_time" content="2020-11-30T02:54:36.292Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自动化发布 npm 包实践">
 <meta name="twitter:description" content="前言本文主要演示整个发布 npm 包流程。 准备1234567891011121314npx vue-sfc-cli# 接下来会有一串的提示，请务必填写# 推荐kebab-case风格，小写字母，多个单词用-（dash）分隔，如my-component# 如你要发布的是团队npm，component name 请输入子组件名称，然后在owner: 填写自己组织的名称，同时也会创建github组织g">
@@ -413,6 +418,18 @@
 
 <p>效果如下：</p>
 <p><img src="/images/20201128180649.png" alt="3252523523523"></p>
+<h2 id="配置-token"><a href="#配置-token" class="headerlink" title="配置 token"></a>配置 token</h2><h3 id="配置-github-token（如需自动配置-github-page）"><a href="#配置-github-token（如需自动配置-github-page）" class="headerlink" title="配置 github token（如需自动配置 github page）"></a>配置 github token（如需自动配置 github page）</h3><p>先在 github 上生成 token<br><img src="/images/20201130094907.png" alt="20201130094907.png"></p>
+<p>然后打开<a href="https://www.travis-ci.org/" target="_blank" rel="noopener">travis-ci</a>,登录你的 github 账号同步你的仓库，然后打开自动部署开关，然后在<code>.travis.yml</code>文件修改 github-token。</p>
+<h3 id="配置-npm-token（如需自动发布-npm-包）"><a href="#配置-npm-token（如需自动发布-npm-包）" class="headerlink" title="配置 npm token（如需自动发布 npm 包）"></a>配置 npm token（如需自动发布 npm 包）</h3><p>打开<a href="https://www.travis-ci.org/" target="_blank" rel="noopener">travis-ci</a>,登录你的 github 账号同步你的仓库。</p>
+<p><img src="/images/20201130104857.png" alt="20201130104857.png"></p>
+<p>进入相关项目后,选择右上角的 More options 中的 Settings,填写 token 变量 NPM_TOKEN(在.travis.yml 文件中使用)</p>
+<p><img src="/images/20201130101929.png" alt="20201130101929.png"></p>
+<p>更改 npm 版本<br>,在 push 代码到仓库之前,需要更改项目的版本号.在 commit 所有更改代码之后,使用以下命令可以实现版本号的更改,并且自动完成 commit。或者选择手动更改版本。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm version parch</span><br></pre></td></tr></table></figure>
+
+<p>push 相关代码,自动完成 npm 发布</p>
+<p><img src="/images/20201130105310.png" alt="20201130105310.png"></p>
+<p><img src="/images/20201130105419.png" alt="20201130105419.png"></p>
 <h2 id="README-完善-（非必须）"><a href="#README-完善-（非必须）" class="headerlink" title="README 完善 （非必须）"></a>README 完善 （非必须）</h2><p>如需完成下面的效果，还需</p>
 <ul>
 <li>整理 badgen 徽章</li>
@@ -645,7 +662,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备"><span class="nav-number">2.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#npm-编写"><span class="nav-number">3.</span> <span class="nav-text">npm 编写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试用例编写"><span class="nav-number">4.</span> <span class="nav-text">测试用例编写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#README-完善-（非必须）"><span class="nav-number">5.</span> <span class="nav-text">README 完善 （非必须）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#badgen-徽章"><span class="nav-number">5.1.</span> <span class="nav-text">badgen 徽章</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发布"><span class="nav-number">6.</span> <span class="nav-text">发布</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备"><span class="nav-number">2.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#npm-编写"><span class="nav-number">3.</span> <span class="nav-text">npm 编写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试用例编写"><span class="nav-number">4.</span> <span class="nav-text">测试用例编写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置-token"><span class="nav-number">5.</span> <span class="nav-text">配置 token</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置-github-token（如需自动配置-github-page）"><span class="nav-number">5.1.</span> <span class="nav-text">配置 github token（如需自动配置 github page）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置-npm-token（如需自动发布-npm-包）"><span class="nav-number">5.2.</span> <span class="nav-text">配置 npm token（如需自动发布 npm 包）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#README-完善-（非必须）"><span class="nav-number">6.</span> <span class="nav-text">README 完善 （非必须）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#badgen-徽章"><span class="nav-number">6.1.</span> <span class="nav-text">badgen 徽章</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发布"><span class="nav-number">7.</span> <span class="nav-text">发布</span></a></li></ol></div>
             
 
           </div>
@@ -681,7 +698,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共36.8k字</span>
+  <span class="post-count">博客全站共37.1k字</span>
 </div>
         
 <div class="busuanzi-count">
